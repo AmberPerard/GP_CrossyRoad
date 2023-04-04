@@ -31,4 +31,5 @@ void UberMaterialScene::Update()
 void UberMaterialScene::OnGUI()
 {
 	GameScene::OnGUI();
+	m_pMaterial->DrawImGui();
 }

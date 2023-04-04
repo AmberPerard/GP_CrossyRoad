@@ -16,5 +16,5 @@ protected:
 	void Update() override;
 	void OnGUI() override;
 private:
-	GameObject* m_pChair;
+	GameObject* m_pChair{};
 };

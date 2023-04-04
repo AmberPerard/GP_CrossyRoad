@@ -312,13 +312,19 @@ float3 CalculateSpecular(float3 viewDirection, float3 normal, float2 texCoord)
 	float3 specColor = float3(0, 0, 0);
 
 	if (gUseSpecularBlinn)
+	{
 		specColor += saturate(CalculateSpecularBlinn(viewDirection, normal));
+	}
 
 	if (gUseSpecularPhong)
+	{
 		specColor += saturate(CalculateSpecularPhong(viewDirection, normal));
+	}
 
 	if (!gUseTextureSpecularIntensity)
+	{
 		return specColor;
+	}
 
 	return specColor * gTextureSpecularIntensity.Sample(gTextureSampler, texCoord).r;
 }
@@ -334,7 +340,7 @@ float3 CalculateNormal(float3 tangent, float3 normal, float2 texCoord)
 		{
 			binormal = -binormal;
 		}
-		float3x3 localAxis = {
+		float3x3 local = {
 			tangent.x, tangent.y, tangent.z,
 			binormal.x, binormal.y, binormal.z,
 			normal.x, normal.y, normal.z,
@@ -342,7 +348,7 @@ float3 CalculateNormal(float3 tangent, float3 normal, float2 texCoord)
 		float3 sampledNormal = gTextureNormal.Sample(gTextureSampler, texCoord);
 		newNormal = sampledNormal.rgb;
 		newNormal = 2 * newNormal - float3(1, 1, 1);
-		newNormal = normalize(mul(newNormal, localAxis));
+		newNormal = normalize(mul(newNormal, local));
 	}
 
 	return newNormal;
@@ -385,7 +391,7 @@ float3 CalculateFresnelFalloff(float3 normal, float3 viewDirection, float3 envir
 	fresnelMask = 1 - fresnelMask;
 	fresnelMask = pow(fresnelMask, gFresnelHardness);
 
-	fresnelFalloff *= fresnelMask;
+	fresnelFalloff = fresnelFalloff * fresnelMask;
 	return environmentColor * fresnelFalloff;
 }
 
