@@ -10,7 +10,8 @@ public:
 	SpikeMaterial& operator=(const SpikeMaterial& other) = delete;
 	SpikeMaterial& operator=(SpikeMaterial&& other) noexcept = delete;
 
-	void SetDiffuseTexture(const std::wstring& assetFile);
+	void UseTransparency(bool enabled);
+	void SetColor(const XMFLOAT4& color) const;
 
 protected:
 	void InitializeEffectVariables() override;
