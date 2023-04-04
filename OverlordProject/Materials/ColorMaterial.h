@@ -12,8 +12,13 @@ public:
 
 	void UseTransparency(bool enabled);
 	void SetColor(const XMFLOAT4& color) const;
+	void SetSpecularTexture(const std::wstring& assetFile);
+	void SetNormalTexture(const std::wstring& assetFile);
+	void SetCubeMap(const std::wstring& assetFile);
+	void SetOpacityMap(const std::wstring& assetFile);
 
 protected:
 	void InitializeEffectVariables() override;
+
 };
 

@@ -3,7 +3,7 @@
 
 /*LAB Content*/
 // #define W3
- //#define W4
+#define W4
 // #define W5
 // #define W6
 // #define W7
@@ -12,7 +12,7 @@
 // #define W10
 
 /*MILESTONE Content*/
- #define MILESTONE_1
+// #define MILESTONE_1
 // #define MILESTONE_2
 
 #pragma region Lab/Milestone Includes
@@ -23,10 +23,10 @@
 #endif
 
 #ifdef W4
-//#include "Scenes/Week 4/ModelTestScene.h"
-//#include "Scenes/Week 4/UberMaterialScene.h"
-//#include "Scenes/Week 4/SpikyScene.h"
-//#include "Scenes/Week 4/SpriteTestScene.h"
+#include "Scenes/Week 4/ModelTestScene.h"
+#include "Scenes/Week 4/UberMaterialScene.h"
+#include "Scenes/Week 4/SpikyScene.h"
+#include "Scenes/Week 4/SpriteTestScene.h"
 #endif
 
 #ifdef W5
@@ -59,12 +59,12 @@
 
 #ifdef MILESTONE_1
 #include "Scenes/Week 3/PongScene.h"
-//#include "Scenes/Week 4/ModelTestScene.h"
-//#include "Scenes/Week 4/UberMaterialScene.h"
-//#include "Scenes/Week 4/SpikyScene.h"
-//#include "Scenes/Week 4/SpriteTestScene.h"
-//#include "Scenes/Week 5/SoftwareSkinningScene_3.h"
-//#include "Scenes/Week 6/HardwareSkinningScene.h"
+#include "Scenes/Week 4/ModelTestScene.h"
+#include "Scenes/Week 4/UberMaterialScene.h"
+#include "Scenes/Week 4/SpikyScene.h"
+#include "Scenes/Week 4/SpriteTestScene.h"
+#include "Scenes/Week 5/SoftwareSkinningScene_3.h"
+#include "Scenes/Week 6/HardwareSkinningScene.h"
 #endif
 
 #ifdef MILESTONE_2
@@ -100,10 +100,10 @@ void MainGame::Initialize()
 #endif
 
 #ifdef W4
-	//SceneManager::Get()->AddGameScene(new ModelTestScene());
-	//SceneManager::Get()->AddGameScene(new UberMaterialScene());
+	SceneManager::Get()->AddGameScene(new ModelTestScene());
+	SceneManager::Get()->AddGameScene(new UberMaterialScene());
 	//SceneManager::Get()->AddGameScene(new SpikyScene());
-	SceneManager::Get()->AddGameScene(new SpriteTestScene());
+	//SceneManager::Get()->AddGameScene(new SpriteTestScene());
 #endif
 
 #ifdef W5

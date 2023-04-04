@@ -13,8 +13,6 @@ void PongScene::Initialize()
 {
 	m_SceneContext.settings.enableOnGUI = true;
 
-	DebugRenderer::ToggleDebugRenderer();
-
 	CreateStart();
 	CreateRoom();
 

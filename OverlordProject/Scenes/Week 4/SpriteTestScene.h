@@ -1,5 +1,5 @@
 #pragma once
-class SpriteTestScene : public GameScene
+class SpriteTestScene final : public GameScene
 {
 public:
 	SpriteTestScene() :GameScene(L"SpriteTestScene") {}
