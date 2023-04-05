@@ -33,7 +33,7 @@ void SpriteComponent::Draw(const SceneContext& sceneContext)
 		m_Color,
 		m_Pivot,
 		XMFLOAT2{ transform->GetScale().x, transform->GetScale().y },
-		MathHelper::QuaternionToEuler(transform->GetWorldRotation()).z,
+		MathHelper::QuaternionToEuler(transform->GetRotation()).z,
 		transform->GetPosition().z
 	);
 
