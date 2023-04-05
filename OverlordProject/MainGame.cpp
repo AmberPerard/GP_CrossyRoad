@@ -4,15 +4,15 @@
 /*LAB Content*/
 // #define W3
 // #define W4
-//#define W5
-#define W6
+// #define W5
+// #define W6
 // #define W7
 // #define W8
 // #define W9
 // #define W10
 
 /*MILESTONE Content*/
-// #define MILESTONE_1
+#define MILESTONE_1
 // #define MILESTONE_2
 
 #pragma region Lab/Milestone Includes
@@ -139,9 +139,9 @@ void MainGame::Initialize()
 	SceneManager::Get()->AddGameScene(new ModelTestScene());
 	SceneManager::Get()->AddGameScene(new UberMaterialScene());
 	SceneManager::Get()->AddGameScene(new SpikyScene());
-	//SceneManager::Get()->AddGameScene(new SpriteTestScene());
-	//SceneManager::Get()->AddGameScene(new SoftwareSkinningScene_3());
-	//SceneManager::Get()->AddGameScene(new HardwareSkinningScene());
+	SceneManager::Get()->AddGameScene(new SpriteTestScene());
+	SceneManager::Get()->AddGameScene(new SoftwareSkinningScene_3());
+	SceneManager::Get()->AddGameScene(new HardwareSkinningScene());
 #endif
 
 #ifdef MILESTONE_2
