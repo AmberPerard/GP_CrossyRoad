@@ -3,8 +3,8 @@
 
 /*LAB Content*/
 // #define W3
-#define W4
-// #define W5
+// #define W4
+ #define W5
 // #define W6
 // #define W7
 // #define W8
@@ -23,9 +23,9 @@
 #endif
 
 #ifdef W4
-//#include "Scenes/Week 4/ModelTestScene.h"
-//#include "Scenes/Week 4/UberMaterialScene.h"
-//#include "Scenes/Week 4/SpikyScene.h"
+#include "Scenes/Week 4/ModelTestScene.h"
+#include "Scenes/Week 4/UberMaterialScene.h"
+#include "Scenes/Week 4/SpikyScene.h"
 #include "Scenes/Week 4/SpriteTestScene.h"
 #endif
 
@@ -39,7 +39,7 @@
 #include "Scenes/Week 6/HardwareSkinningScene.h"
 #endif
 
-#ifdef W5
+#ifdef W7
 #include "Scenes/Week 7/FontTestScene.h"
 #include "Scenes/Week 7/CharacterScene.h"
 #include "Scenes/Week 7/PickingScene.h"
