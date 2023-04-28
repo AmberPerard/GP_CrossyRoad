@@ -60,11 +60,47 @@ void CameraComponent::SetActive(bool active)
 	ASSERT_IF(!pScene, L"Failed to set active camera. Parent game scene is null");
 
 	m_IsActive = active;
-	pScene->SetActiveCamera(active?this:nullptr); //Switch to default camera if active==false
+	pScene->SetActiveCamera(active ? this : nullptr); //Switch to default camera if active==false
 }
 
-GameObject* CameraComponent::Pick(CollisionGroup /*ignoreGroups*/) const
+GameObject* CameraComponent::Pick(CollisionGroup ignoreGroups) const
 {
 	TODO_W7(L"Implement Picking Logic")
+		const auto& gc = GetScene()->GetSceneContext();
+
+	// ndc
+	const POINT mouse = gc.pInput->GetMousePosition();
+
+	const float hWidth = GetScene()->GetSceneContext().windowWidth / 2;
+	const float hHeight = GetScene()->GetSceneContext().windowHeight / 2;
+	float x = (mouse.x - hWidth) / hWidth;
+	float y = ((hHeight - mouse.y) / hHeight);
+
+	// near far point
+	const auto vpInverse = XMLoadFloat4x4(&GetViewProjectionInverse());
+	const auto nearPoint = XMVector3TransformCoord({ x, y, 0.f, 0.f }, vpInverse);
+	const auto farPoint = XMVector3TransformCoord({ x,y,1.f, 0.f }, vpInverse);
+
+	// make it a PxVec3
+	XMFLOAT3 direction;
+	XMStoreFloat3(&direction, XMVectorSubtract(farPoint, nearPoint));
+	PxVec3 rayDirection = PhysxHelper::ToPxVec3(direction);
+	rayDirection.normalize();
+
+	XMFLOAT3 rayStart;
+	XMStoreFloat3(&rayStart, nearPoint);
+
+	// Raycast
+	PxQueryFilterData filterData;
+	filterData.data.word0 = ~static_cast<PxU32>(ignoreGroups);
+
+	PxRaycastBuffer hit;
+	const auto& physxProxy = GetGameObject()->GetScene()->GetPhysxProxy();
+	if (physxProxy->Raycast(PhysxHelper::ToPxVec3(rayStart), rayDirection, PX_MAX_F32, hit
+		, PxHitFlag::eDEFAULT, filterData))
+	{
+		const auto& go = static_cast<BaseComponent*>(hit.getAnyHit(static_cast<PxU32>(0)).actor->userData);
+		return go->GetGameObject();
+	}
 	return nullptr;
 }
