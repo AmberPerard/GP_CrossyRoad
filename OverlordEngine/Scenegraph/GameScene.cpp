@@ -97,6 +97,7 @@ void GameScene::RootInitialize(const GameContext& gameContext)
 	const auto pFreeCamera = new FreeCamera();
 	pFreeCamera->SetRotation(30, 0);
 	pFreeCamera->GetTransform()->Translate(0, 50, -80);
+	
 	AddChild(pFreeCamera);
 
 	m_pDefaultCamera = pFreeCamera->GetComponent<CameraComponent>();

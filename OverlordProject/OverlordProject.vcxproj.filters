@@ -31,6 +31,8 @@
     <ClCompile Include="Scenes\Week 7\FontTestScene.cpp" />
     <ClCompile Include="Scenes\Week 7\PickingScene.cpp" />
     <ClCompile Include="Prefabs\Character.cpp" />
+    <ClCompile Include="Scenes\CrossyRoad\CrossyRoadScene.cpp" />
+    <ClCompile Include="Prefabs\CrossyRoad\CrossyCharacter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h" />
@@ -62,5 +64,7 @@
     <ClInclude Include="Scenes\Week 7\FontTestScene.h" />
     <ClInclude Include="Scenes\Week 7\PickingScene.h" />
     <ClInclude Include="Prefabs\Character.h" />
+    <ClInclude Include="Scenes\CrossyRoad\CrossyRoadScene.h" />
+    <ClInclude Include="Prefabs\CrossyRoad\CrossyCharacter.h" />
   </ItemGroup>
 </Project>
