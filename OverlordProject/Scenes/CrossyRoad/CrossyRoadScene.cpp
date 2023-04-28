@@ -1,9 +1,6 @@
 #include "stdafx.h"
 #include "CrossyRoadScene.h"
 
-#include "Materials/ColorMaterial.h"
-
-
 void CrossyRoadScene::Initialize()
 {
 	m_SceneContext.settings.enableOnGUI = true;
@@ -22,11 +19,10 @@ void CrossyRoadScene::Initialize()
 
 	m_pCharacter = new CrossyCharacter(characterDesc);
 
-	//// camera
+	//Camera
 	FreeCamera* pCamera = new FreeCamera();
 	pCamera->GetTransform()->Translate(0.f, 100.f, -50.f);
 	pCamera->SetRotation(50.f, 55.f);
-	////pCamera->GetTransform()->Rotate(45.f, 65.f, 0.f);
 
 	AddChild(pCamera);
 	SetActiveCamera(pCamera->GetComponent<CameraComponent>());
@@ -50,4 +46,5 @@ void CrossyRoadScene::Initialize()
 void CrossyRoadScene::OnGUI()
 {
 	GameScene::OnGUI();
+	m_pCharacter->DrawImGui();
 }

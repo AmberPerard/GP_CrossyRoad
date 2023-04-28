@@ -21,17 +21,16 @@ private:
 	GameObject* m_pCharachter;
 	CharacterDesc m_CharacterDesc;
 
-
 	//Movement
 	XMFLOAT2 m_TargetPos{};
 	XMFLOAT2 m_PrevPos{};
 
-	const int m_TileSize{ 10 };
+	const float m_TileSize{ 10 };
 
 	const float m_JumpTime{ 0.1f };
 	float m_JumpTimer{ 0.f };
 	const float m_JumpHeight{ 5.f };
-	float m_CurrentHeight;
+	float m_CurrentHeight{0};
 
 	void MoveCharacter();
 

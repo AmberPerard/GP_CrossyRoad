@@ -17,14 +17,14 @@ CrossyCharacter::CrossyCharacter(CharacterDesc characterDesc)
 	m_JumpTimer = m_JumpTime;
 }
 
-void CrossyCharacter::DrawImGui()
+void CrossyCharacter::Initialize(const SceneContext& sceneContext)
 {
+	GameObject::Initialize(sceneContext);
 }
 
 void CrossyCharacter::Update(const SceneContext& sceneContext)
 {
 	GameObject::Update(sceneContext);
-
 	
 	bool isMoving = false;
 
@@ -41,28 +41,24 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveForward))
 		{
 			m_TargetPos.x += m_TileSize;
-			std::cout << "Forward" << std::endl;
 			SetRotation(180.f);
 		}
 
 		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveBackward))
 		{
 			m_TargetPos.x -= m_TileSize;
-			std::cout << "Backwards" << std::endl;
 			SetRotation(0.f);
 		}
 
 		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveRight))
 		{
 			m_TargetPos.y -= m_TileSize;
-			std::cout << "Right" << std::endl;
 			SetRotation(270.f);
 		}
 
 		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveLeft))
 		{
 			m_TargetPos.y += m_TileSize;
-			std::cout << "Left" << std::endl;
 			SetRotation(90.f);
 		}
 
@@ -80,9 +76,21 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 		}
 	}
 
+	//implement Squish
+
 	MoveCharacter();
 	RotateCharacter(sceneContext);
 
+}
+
+void CrossyCharacter::DrawImGui()
+{
+	ImGui::Begin("Character");
+	ImGui::DragFloat("JumpTime: %f", m_JumpTime);
+	ImGui::Text("TileSize: %f", m_TileSize);
+	ImGui::Text("RotationTime: %f", m_RotationTime);
+	ImGui::Text("MaxSquishScale: %f", m_MaxSquishScale);
+	ImGui::End();
 }
 
 void CrossyCharacter::MoveCharacter()
@@ -142,9 +150,4 @@ void CrossyCharacter::SetRotation(float rotation)
 		}
 	}
 	m_RotationTimer = m_RotationTime;
-}
-
-void CrossyCharacter::Initialize(const SceneContext& sceneContext)
-{
-	GameObject::Initialize(sceneContext);
 }

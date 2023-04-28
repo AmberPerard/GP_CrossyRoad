@@ -26,5 +26,4 @@ private:
 	};
 
 	CrossyCharacter* m_pCharacter{};
-	//GameObject* m_pCharachter;
 };
