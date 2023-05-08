@@ -85,12 +85,12 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 
 void CrossyCharacter::DrawImGui()
 {
-	ImGui::Begin("Character");
-	ImGui::DragFloat("JumpTime: %f", m_JumpTime);
-	ImGui::Text("TileSize: %f", m_TileSize);
-	ImGui::Text("RotationTime: %f", m_RotationTime);
-	ImGui::Text("MaxSquishScale: %f", m_MaxSquishScale);
-	ImGui::End();
+	//ImGui::Begin("Character");
+	//ImGui::DragFloat("JumpTime: %f", m_JumpTime);
+	//ImGui::Text("TileSize: %f", m_TileSize);
+	//ImGui::Text("RotationTime: %f", m_RotationTime);
+	//ImGui::Text("MaxSquishScale: %f", m_MaxSquishScale);
+	//ImGui::End();
 }
 
 void CrossyCharacter::MoveCharacter()
