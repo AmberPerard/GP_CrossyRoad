@@ -25,11 +25,11 @@ private:
 	XMFLOAT2 m_TargetPos{};
 	XMFLOAT2 m_PrevPos{};
 
-	const float m_TileSize{ 10 };
+	const float m_TileSize{ 1 };
 
 	const float m_JumpTime{ 0.1f };
 	float m_JumpTimer{ 0.f };
-	const float m_JumpHeight{ 5.f };
+	const float m_JumpHeight{ 1.f };
 	float m_CurrentHeight{0};
 
 	void MoveCharacter();

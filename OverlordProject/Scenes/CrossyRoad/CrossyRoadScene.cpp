@@ -20,12 +20,15 @@ void CrossyRoadScene::Initialize()
 	m_pCharacter = new CrossyCharacter(characterDesc);
 
 	//Camera
-	FreeCamera* pCamera = new FreeCamera();
-	pCamera->GetTransform()->Translate(0.f, 100.f, -50.f);
-	pCamera->SetRotation(50.f, 55.f);
+	m_pCamera = new FollowCamera(m_pCharacter,m_Pitch,m_Yaw,m_Distance);
 
-	AddChild(pCamera);
-	SetActiveCamera(pCamera->GetComponent<CameraComponent>());
+	//FreeCamera* pCamera = new FreeCamera();
+	////pCamera->Initialize(m_SceneContext);
+	//pCamera->GetTransform()->Translate(0.f, 100.f, -50.f);
+	//pCamera->SetRotation(50.f, 55.f);
+
+	AddChild(m_pCamera);
+	SetActiveCamera(m_pCamera->GetComponent<CameraComponent>());
 
 	AddChild(m_pCharacter);
 
@@ -47,4 +50,5 @@ void CrossyRoadScene::OnGUI()
 {
 	GameScene::OnGUI();
 	m_pCharacter->DrawImGui();
+	m_pCamera->DrawImGui();
 }

@@ -12,7 +12,7 @@ CrossyCharacter::CrossyCharacter(CharacterDesc characterDesc)
 	auto model = m_pCharachter->AddComponent(new ModelComponent(L"../Resources/Meshes/CrossyRoad/Chicken.ovm"));
 	model->SetMaterial(material);
 
-	m_pCharachter->GetTransform()->Scale(15.f);
+	m_pCharachter->GetTransform()->Scale(1.f);
 	AddChild(m_pCharachter);
 	m_JumpTimer = m_JumpTime;
 }
@@ -38,25 +38,25 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 	{
 		m_PrevPos = m_TargetPos;
 
-		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveForward))
+		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveRight))
 		{
 			m_TargetPos.x += m_TileSize;
 			SetRotation(180.f);
 		}
 
-		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveBackward))
+		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveLeft))
 		{
 			m_TargetPos.x -= m_TileSize;
 			SetRotation(0.f);
 		}
 
-		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveRight))
+		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveBackward))
 		{
 			m_TargetPos.y -= m_TileSize;
 			SetRotation(270.f);
 		}
 
-		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveLeft))
+		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveForward))
 		{
 			m_TargetPos.y += m_TileSize;
 			SetRotation(90.f);

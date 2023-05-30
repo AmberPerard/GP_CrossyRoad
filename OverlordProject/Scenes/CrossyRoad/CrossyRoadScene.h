@@ -1,4 +1,5 @@
 #pragma once
+#include "Prefabs/FollowCamera.h"
 #include "Prefabs/CrossyRoad/CrossyCharacter.h"
 
 class CrossyRoadScene : public GameScene
@@ -26,4 +27,6 @@ private:
 	};
 
 	CrossyCharacter* m_pCharacter{};
+	FollowCamera* m_pCamera{};
+	float m_Pitch{50.f}, m_Yaw{-15.f}, m_Distance{10.f};
 };
