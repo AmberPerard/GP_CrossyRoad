@@ -87,7 +87,7 @@ void TerrainGenerator::Initialize(const SceneContext& /*sceneContext*/)
 
 	//put a few grass slices down by default for the player to start on
 	//first 5 slices before slice 0
-	for (int i{ -5 }; i < 0; ++i)
+	for (int i{ -5 }; i <= 0; ++i)
 	{
 		TerrainSlice* slice = nullptr;
 		auto grass = new GrassSlice(100, m_MaxWidth, m_GrassTextureID);
@@ -115,7 +115,7 @@ void TerrainGenerator::Update(const SceneContext& /*sceneContext*/)
 		}
 
 		//Despawn old slices
-		auto slice = m_TerrainSlices.find(((int)m_TrackedCharacter->GetTransform()->GetPosition().z - 12));
+		auto slice = m_TerrainSlices.find(((int)m_TrackedCharacter->GetTransform()->GetPosition().z - m_SlicesAhead));
 		if (slice != m_TerrainSlices.end())
 		{
 			RemoveChild(slice->second, true);
@@ -130,7 +130,6 @@ void TerrainGenerator::SpawnNewSlice()
 	TerrainSlice* slice = nullptr;
 	if (m_NrBlankGrassSlices > 0)
 	{
-		std::cout << "blank grass slice" << std::endl;
 		slice = new GrassSlice(100, m_MaxWidth, m_GrassTextureID);
 		AddChild(slice);
 		--m_NrBlankGrassSlices;
@@ -177,25 +176,21 @@ void TerrainGenerator::SpawnNewSlice()
 				switch (pair.first)
 				{
 				case TerrainType::GRASS:
-					std::cout << "Grass" << std::endl;
 					slice = new GrassSlice(2, m_MaxWidth, m_GrassTextureID);
 					AddChild(slice);
 					m_PreviousTerrainType = TerrainType::GRASS;
 					break;
 				case TerrainType::ROAD:
-					std::cout << "road" << std::endl;
 					slice = new RoadSlice(0, m_MaxWidth, m_RoadTextureID);
 					AddChild(slice);
 					m_PreviousTerrainType = TerrainType::ROAD;
 					break;
 				case TerrainType::WATER:
-					std::cout << "water" << std::endl;
 					slice = new WaterSlice(4, m_MaxWidth, m_WaterTextureID);
 					AddChild(slice);
 					m_PreviousTerrainType = TerrainType::WATER;
 					break;
 				case TerrainType::RAILROAD:
-					std::cout << "railroad" << std::endl;
 					slice = new RailRoadSlice(0, m_MaxWidth, m_RailroadTextureID);
 					AddChild(slice);
 					m_PreviousTerrainType = TerrainType::RAILROAD;
@@ -214,8 +209,6 @@ void TerrainGenerator::SpawnNewSlice()
 
 
 	if (slice != nullptr) {
-		std::cout << "ahhhhh" << std::endl;
-
 		m_TerrainSlices.insert(std::pair(m_CurrentSliceNumber, (slice)));
 		++m_CurrentSliceNumber;
 
