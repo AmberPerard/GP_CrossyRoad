@@ -31,11 +31,13 @@ private:
 	XMFLOAT2 m_TargetPos{ 0,0 };
 	XMFLOAT2 m_PrevPos{0,0};
 
-	const float m_TileSize{ 1 };
+	const float m_TileSize{ 10 };
+
+	int m_StepsTaken{0};
 
 	const float m_JumpTime{ 0.1f };
 	float m_JumpTimer{ 0.f };
-	const float m_JumpHeight{ 1.f };
+	const float m_JumpHeight{ 10.f };
 	float m_CurrentHeight{0};
 
 	TerrainGenerator* m_pTerrainGenerator{};

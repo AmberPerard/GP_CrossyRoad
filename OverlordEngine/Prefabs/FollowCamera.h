@@ -28,6 +28,6 @@ private:
 	GameObject* m_pTarget{};
 	XMFLOAT3 m_StartPos;
 
-	float m_Distance{ 10.f };
+	float m_Distance{ 100.f };
 };
 

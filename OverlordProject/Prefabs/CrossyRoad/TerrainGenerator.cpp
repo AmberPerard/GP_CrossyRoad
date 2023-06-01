@@ -48,7 +48,8 @@ void TerrainGenerator::Reset()
 		auto grass = new GrassSlice(100, m_MaxWidth, m_GrassTextureID);
 		slice = AddChild(grass);
 		m_TerrainSlices.insert(std::pair{ i, slice });
-		slice->GetTransform()->Translate(0.f, -0.4f, float(i));
+		slice->GetTransform()->Translate(0.f, -0.6f, float(i));
+		//slice->GetTransform()->Scale(10.f);
 	}
 
 	m_NrBlankGrassSlices = m_MaxBlankSlices;
@@ -115,7 +116,8 @@ void TerrainGenerator::Initialize(const SceneContext& /*sceneContext*/)
 		auto grass = new GrassSlice(100, m_MaxWidth, m_GrassTextureID);
 		slice = AddChild(grass);
 		m_TerrainSlices.insert(std::pair{ i, slice });
-		slice->GetTransform()->Translate(0.f, -0.4f, float(i));
+		slice->GetTransform()->Translate(0.f, -0.6f, float(i));
+		//slice->GetTransform()->Scale(10.f);
 	}
 
 	m_NrBlankGrassSlices = m_MaxBlankSlices;
@@ -132,7 +134,7 @@ void TerrainGenerator::Update(const SceneContext& /*sceneContext*/)
 	//update the terrain, spawn new slices when going forward, and despawn old slices when they go out of screen
 	if (m_TrackedCharacter)
 	{
-		while (static_cast<int>(round(m_TrackedCharacter->GetTransform()->GetPosition().z)) + m_SlicesAhead >= m_CurrentSliceNumber)
+		while (static_cast<int>(round(m_TrackedCharacter->GetTransform()->GetPosition().z/10)) + m_SlicesAhead >= m_CurrentSliceNumber)
 		{
 			SpawnNewSlice();
 		}
@@ -140,7 +142,7 @@ void TerrainGenerator::Update(const SceneContext& /*sceneContext*/)
 		if (!m_TrackedCharacter->IsDead())
 		{
 			//Despawn old slices
-			auto slice = m_TerrainSlices.find(((int)m_TrackedCharacter->GetTransform()->GetPosition().z - m_SlicesAhead));
+			auto slice = m_TerrainSlices.find(((int)m_TrackedCharacter->GetTransform()->GetPosition().z/10 - m_SlicesAhead));
 			if (slice != m_TerrainSlices.end())
 			{
 				RemoveChild(slice->second, true);
@@ -236,7 +238,8 @@ void TerrainGenerator::SpawnNewSlice()
 
 	if (slice != nullptr) {
 		m_TerrainSlices.insert(std::pair(m_CurrentSliceNumber, (slice)));
-		slice->GetTransform()->Translate(0.f, -0.4f, float(m_CurrentSliceNumber));
+		slice->GetTransform()->Translate(0.f, -0.6f, float(m_CurrentSliceNumber));
+		//slice->GetTransform()->Scale(10.f);
 		++m_CurrentSliceNumber;
 
 	}

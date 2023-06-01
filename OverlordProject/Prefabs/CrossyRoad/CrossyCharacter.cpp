@@ -28,6 +28,7 @@ void CrossyCharacter::SetTerrain(TerrainGenerator* pTerrainGenerator)
 void CrossyCharacter::Respawn()
 {
 	m_IsDead = false;
+	m_StepsTaken = 0;
 	m_TargetPos = {0,0};
 	m_PrevPos = {0,0};
 	m_pCharachter->GetTransform()->Translate(0,0,0);
@@ -36,6 +37,7 @@ void CrossyCharacter::Respawn()
 
 void CrossyCharacter::Initialize(const SceneContext& sceneContext)
 {
+	m_StepsTaken = 0;
 	GameObject::Initialize(sceneContext);
 }
 
@@ -47,10 +49,10 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 	WaterSlice* pWater;
 	if(m_pTerrainGenerator)
 	{
-		pWater = dynamic_cast<WaterSlice*>(m_pTerrainGenerator->GetCurrentTerrain(int(m_PrevPos.y)));
+		pWater = dynamic_cast<WaterSlice*>(m_pTerrainGenerator->GetCurrentTerrain(int(m_StepsTaken)));
 		if (pWater)
 		{
-			if(!pWater->IsLilyPad(int(m_PrevPos.x)))
+			if(!pWater->IsLilyPad(int(m_PrevPos.x/10)))
 			{
 				m_IsDead = true;
 			}
@@ -89,7 +91,7 @@ void CrossyCharacter::UpdateMovement(const SceneContext& sceneContext)
 
 		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveRight))
 		{
-			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x) + 1, int(m_TargetPos.y)))
+			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x/10) + 1, int(m_StepsTaken)))
 			{
 				m_TargetPos.x += m_TileSize;
 				SetRotation(180.f);
@@ -98,7 +100,7 @@ void CrossyCharacter::UpdateMovement(const SceneContext& sceneContext)
 
 		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveLeft))
 		{
-			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x) - 1, int(m_TargetPos.y)))
+			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x/10) - 1, int(m_StepsTaken)))
 			{
 				m_TargetPos.x -= m_TileSize;
 				SetRotation(0.f);
@@ -106,18 +108,20 @@ void CrossyCharacter::UpdateMovement(const SceneContext& sceneContext)
 		}
 		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveBackward))
 		{
-			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x), int(m_TargetPos.y-1)))
+			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x/10), int(m_StepsTaken-1)))
 			{
 				m_TargetPos.y -= m_TileSize;
+				m_StepsTaken--;
 				SetRotation(270.f);
 			}
 		}
 
 		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveForward))
 		{
-			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x), int(m_TargetPos.y+1)))
+			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x/10), int(m_StepsTaken+1)))
 			{
 				m_TargetPos.y += m_TileSize;
+				m_StepsTaken++;
 				SetRotation(90.f);
 			}
 		}

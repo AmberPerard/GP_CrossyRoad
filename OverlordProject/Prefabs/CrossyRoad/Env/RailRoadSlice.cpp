@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "RailRoadSlice.h"
 
+#include "Materials/Shadow/DiffuseMaterial_Shadow.h"
+
 RailRoadSlice::RailRoadSlice(int amountOfObstacles, int maxWidth, UINT textureID)
 	:TerrainSlice(amountOfObstacles, maxWidth,textureID)
 {
@@ -19,7 +21,7 @@ void RailRoadSlice::Initialize(const SceneContext&)
 {
 	m_pSlice = new GameObject();
 	auto model = m_pSlice->AddComponent(new ModelComponent(L"../Resources/Meshes/CrossyRoad/env/railroad.ovm"));
-	auto mat = MaterialManager::Get()->GetMaterial(m_TextureID);
+	DiffuseMaterial_Shadow* mat = dynamic_cast<DiffuseMaterial_Shadow*>(MaterialManager::Get()->GetMaterial(m_TextureID));
 
 	model->SetMaterial(mat);
 	AddChild(m_pSlice);
