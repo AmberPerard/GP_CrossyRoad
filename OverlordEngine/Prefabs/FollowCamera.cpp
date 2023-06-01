@@ -27,6 +27,16 @@ void FollowCamera::Initialize(const SceneContext& sceneContext)
 
 void FollowCamera::Update(const SceneContext& sceneContext)
 {
+	GetTransform()->Rotate(m_TotalPitch, m_TotalYaw, 0.f);
+
+	//lookat translation
+	XMFLOAT3 forward{ sin(XMConvertToRadians(m_TotalYaw)) * cos(XMConvertToRadians(m_TotalPitch)) ,
+					sin(XMConvertToRadians(-m_TotalPitch)),
+					cos(XMConvertToRadians(m_TotalYaw)) * cos(XMConvertToRadians(m_TotalPitch))
+	};
+
+	m_StartPos = XMFLOAT3(-forward.x * m_Distance, -forward.y * m_Distance, -forward.z * m_Distance + 2);
+
 	//follow the player in the z direction
 	float value{ 2.f * sceneContext.pGameTime->GetElapsed() };
 	MathHelper::Clamp(value, 1.f, 0.f);

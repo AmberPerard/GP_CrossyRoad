@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "GrassSlice.h"
 
+#include "Tree.h"
+
 GrassSlice::GrassSlice(int amountOfObstacles, int maxWidth, UINT textureID)
 	:TerrainSlice(amountOfObstacles, maxWidth, textureID)
 {
@@ -29,4 +31,36 @@ void GrassSlice::Initialize(const SceneContext& /*sceneContext*/)
 	AddChild(m_pSlice);
 	//Create the obstacles
 	//Put the obstacles on the side
+	CreateSideTrees();
+
+	if (m_NrObstacles == 100)
+	{
+		//spawn obstacles at all locations
+		for (int i{ -m_MaxWidth }; i < m_MaxWidth + 1; ++i)
+		{
+			//spawn tree at this x pos
+			GameObject* pObstacle = nullptr;
+			pObstacle = AddChild(new Tree());
+			m_Obstacles.insert(std::pair{ i, pObstacle });
+			pObstacle->GetTransform()->Translate(XMFLOAT3{   float(i), 0.4f, 0.f });
+		}
+	}
+}
+
+void GrassSlice::CreateSideTrees()
+{
+	//Put the obstacles on the side
+	GameObject* pObstacle = nullptr;
+
+	for (int i = 1; i <= 3; i++)
+	{
+		pObstacle = AddChild(new Tree());
+		auto xpos= -m_MaxWidth - float(i);
+		pObstacle->GetTransform()->Translate(XMFLOAT3{ xpos, 0.4f, 0.f });
+		m_Obstacles.insert(std::pair{ int(xpos), pObstacle });
+		pObstacle = AddChild(new Tree());
+		xpos = m_MaxWidth + float(i);
+		pObstacle->GetTransform()->Translate(XMFLOAT3{ xpos, 0.4f, 0.f });
+		m_Obstacles.insert(std::pair{int(xpos), pObstacle });
+	}
 }

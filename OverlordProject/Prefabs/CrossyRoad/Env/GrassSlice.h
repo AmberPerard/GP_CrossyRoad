@@ -14,8 +14,8 @@ public:
 
 	//Custom functions
 	virtual bool IsSlicePassable(int xPos) override;
-
-
 	void Initialize(const SceneContext&) override;
+private:
+	void CreateSideTrees();
 };
 

@@ -1,6 +1,8 @@
 #pragma once
 #include "Prefabs/Character.h"
 
+class TerrainGenerator;
+
 class CrossyCharacter final : public GameObject
 {
 public:
@@ -13,6 +15,8 @@ public:
 	CrossyCharacter& operator=(CrossyCharacter&& other) noexcept = delete;
 
 	void DrawImGui();
+	XMFLOAT2 GetPrevPosition() const { return m_PrevPos; };
+	void SetTerrain(TerrainGenerator* pTerrainGenerator);
 
 protected:
 	void Initialize(const SceneContext&) override;
@@ -22,8 +26,8 @@ private:
 	CharacterDesc m_CharacterDesc;
 
 	//Movement
-	XMFLOAT2 m_TargetPos{};
-	XMFLOAT2 m_PrevPos{};
+	XMFLOAT2 m_TargetPos{ 0,0 };
+	XMFLOAT2 m_PrevPos{0,0};
 
 	const float m_TileSize{ 1 };
 
@@ -32,6 +36,8 @@ private:
 	const float m_JumpHeight{ 1.f };
 	float m_CurrentHeight{0};
 
+	TerrainGenerator* m_pTerrainGenerator{};
+	void UpdateMovement(const SceneContext& sceneContext);
 	void MoveCharacter();
 
 	//Squish

@@ -93,12 +93,14 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Prefabs\CrossyRoad\Env\Obstacle.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\GrassSlice.cpp" />
     <ClCompile Include="Materials\Post\PostGrayscale.cpp" />
     <ClCompile Include="Materials\Post\PostBlur.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\CrossyCharacter.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\RoadSlice.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\RailRoadSlice.cpp" />
+    <ClCompile Include="Prefabs\CrossyRoad\Env\Rock.cpp" />
     <ClCompile Include="Scenes\CrossyRoad\CrossyRoadScene.cpp" />
     <ClCompile Include="Materials\DiffuseMaterial_Skinned.cpp" />
     <ClCompile Include="Materials\Shadow\DiffuseMaterial_Shadow.cpp" />
@@ -147,6 +149,7 @@
     <ClCompile Include="Prefabs\CrossyRoad\Env\TerrainSlice.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\TerrainGenerator.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\WaterSlice.cpp" />
+    <ClCompile Include="Prefabs\CrossyRoad\Env\Tree.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OverlordEngine\OverlordEngine.vcxproj">
@@ -154,12 +157,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Prefabs\CrossyRoad\Env\Obstacle.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Env\GrassSlice.h" />
     <ClInclude Include="Materials\Post\PostGrayscale.h" />
     <ClInclude Include="Materials\Post\PostBlur.h" />
     <ClInclude Include="Prefabs\CrossyRoad\CrossyCharacter.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Env\RoadSlice.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Env\RailRoadSlice.h" />
+    <ClInclude Include="Prefabs\CrossyRoad\Env\Rock.h" />
     <ClInclude Include="Scenes\CrossyRoad\CrossyRoadScene.h" />
     <ClInclude Include="Materials\DiffuseMaterial_Skinned.h" />
     <ClInclude Include="Materials\Shadow\DiffuseMaterial_Shadow.h" />
@@ -195,6 +200,7 @@
     <ClInclude Include="Prefabs\CrossyRoad\Env\TerrainSlice.h" />
     <ClInclude Include="Prefabs\CrossyRoad\TerrainGenerator.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Env\WaterSlice.h" />
+    <ClInclude Include="Prefabs\CrossyRoad\Env\Tree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

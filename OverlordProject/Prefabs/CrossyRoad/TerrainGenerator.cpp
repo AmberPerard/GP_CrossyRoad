@@ -5,7 +5,7 @@
 #include "Env/RailRoadSlice.h"
 #include "Env/RoadSlice.h"
 #include "Env/WaterSlice.h"
-#include "Materials/DiffuseMaterial.h"
+#include "Materials/Shadow/DiffuseMaterial_Shadow.h"
 
 TerrainGenerator::TerrainGenerator(CrossyCharacter* trackedCharacter, int slicesAhead, int width)
 	: m_TrackedCharacter(trackedCharacter)
@@ -54,46 +54,48 @@ TerrainSlice* TerrainGenerator::GetPreviousTerrain()
 	return GetCurrentTerrain(m_CurrentSliceNumber - 1);
 }
 
-bool TerrainGenerator::IsCurrentSlicePassable(int /*xPos*/, int sliceNr)
+bool TerrainGenerator::IsCurrentSlicePassable(int xPos, int sliceNr)
 {
-	TerrainSlice* pSlice = m_TerrainSlices.find(sliceNr)->second;
+	TerrainSlice* pSlice = m_TerrainSlices.find(sliceNr )->second;
 	if (pSlice)
 	{
-		//return the pslice.passable()
+		return pSlice->IsSlicePassable(xPos);
 	}
-
-	return true;
+	else
+	{
+		return false;
+	}
 }
 
 void TerrainGenerator::Initialize(const SceneContext& /*sceneContext*/)
 {
 	//Initializing textures for the terrain
-	auto material = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+	auto material = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 	material->SetDiffuseTexture(L"../Resources/Textures/crossy/env/light-grass.png");
 	m_GrassTextureID = material->GetMaterialId();
 
-	material = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+	material = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 	material->SetDiffuseTexture(L"../Resources/Textures/crossy/env/water.png");
 	m_WaterTextureID = material->GetMaterialId();
 
-	material = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+	material = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 	material->SetDiffuseTexture(L"../Resources/Textures/crossy/env/road.png");
 	m_RoadTextureID = material->GetMaterialId();
 
-	material = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+	material = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 	material->SetDiffuseTexture(L"../Resources/Textures/crossy/env/railroad.png");
 	m_RailroadTextureID = material->GetMaterialId();
 
 
 	//put a few grass slices down by default for the player to start on
 	//first 5 slices before slice 0
-	for (int i{ -5 }; i <= 0; ++i)
+	TerrainSlice* slice = nullptr;
+	for (int i{ -5 }; i < 0; ++i)
 	{
-		TerrainSlice* slice = nullptr;
 		auto grass = new GrassSlice(100, m_MaxWidth, m_GrassTextureID);
 		slice = AddChild(grass);
 		m_TerrainSlices.insert(std::pair{ i, slice });
-		slice->GetTransform()->Translate(0.f, -1.f, -0.5f+float(i));
+		slice->GetTransform()->Translate(0.f, -0.4f,  float(i));
 	}
 
 	m_NrBlankGrassSlices = m_MaxBlankSlices;
@@ -102,6 +104,7 @@ void TerrainGenerator::Initialize(const SceneContext& /*sceneContext*/)
 	{
 		SpawnNewSlice();
 	}
+	std::cout << "TerrainGenerator initialized" << std::endl;
 }
 
 void TerrainGenerator::Update(const SceneContext& /*sceneContext*/)
@@ -130,7 +133,7 @@ void TerrainGenerator::SpawnNewSlice()
 	TerrainSlice* slice = nullptr;
 	if (m_NrBlankGrassSlices > 0)
 	{
-		slice = new GrassSlice(100, m_MaxWidth, m_GrassTextureID);
+		slice = new GrassSlice(0, m_MaxWidth, m_GrassTextureID);
 		AddChild(slice);
 		--m_NrBlankGrassSlices;
 
@@ -210,9 +213,9 @@ void TerrainGenerator::SpawnNewSlice()
 
 	if (slice != nullptr) {
 		m_TerrainSlices.insert(std::pair(m_CurrentSliceNumber, (slice)));
+		slice->GetTransform()->Translate(0.f, -0.4f,  float(m_CurrentSliceNumber));
 		++m_CurrentSliceNumber;
 
-		slice->GetTransform()->Translate(0.f, -1.f, -0.5f+ float(m_CurrentSliceNumber));
 	}
 
 }

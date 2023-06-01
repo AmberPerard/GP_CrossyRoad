@@ -14,7 +14,7 @@ public:
 	//Custom functions
 	virtual bool IsSlicePassable(int xPos) = 0;
 	/*TerrainType m_TerrainType{TerrainType::GRASS};*/
-public:
+protected:
 	void Initialize(const SceneContext&) override = 0;
 
 	//Map for the obstacles and the position on the x axis

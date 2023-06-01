@@ -1,11 +1,13 @@
 #include "stdafx.h"
 #include "CrossyCharacter.h"
-#include "Materials/DiffuseMaterial.h"
+
+#include "TerrainGenerator.h"
+#include "Materials/Shadow/DiffuseMaterial_Shadow.h"
 
 CrossyCharacter::CrossyCharacter(CharacterDesc characterDesc)
 	:m_CharacterDesc{ characterDesc }
 {
-	const auto material = MaterialManager::Get()->CreateMaterial<DiffuseMaterial>();
+	const auto material = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 	material->SetDiffuseTexture(L"../Resources/Textures/Chicken.png");
 
 	m_pCharachter = new GameObject();
@@ -17,6 +19,11 @@ CrossyCharacter::CrossyCharacter(CharacterDesc characterDesc)
 	m_JumpTimer = m_JumpTime;
 }
 
+void CrossyCharacter::SetTerrain(TerrainGenerator* pTerrainGenerator)
+{
+	m_pTerrainGenerator = pTerrainGenerator;
+}
+
 void CrossyCharacter::Initialize(const SceneContext& sceneContext)
 {
 	GameObject::Initialize(sceneContext);
@@ -25,56 +32,7 @@ void CrossyCharacter::Initialize(const SceneContext& sceneContext)
 void CrossyCharacter::Update(const SceneContext& sceneContext)
 {
 	GameObject::Update(sceneContext);
-	
-	bool isMoving = false;
-
-	if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveForward)
-		|| sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveBackward)
-		|| sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveLeft)
-		|| sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveRight))
-		isMoving = true;
-
-	if (m_JumpTimer <= 0.f)
-	{
-		m_PrevPos = m_TargetPos;
-
-		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveRight))
-		{
-			m_TargetPos.x += m_TileSize;
-			SetRotation(180.f);
-		}
-
-		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveLeft))
-		{
-			m_TargetPos.x -= m_TileSize;
-			SetRotation(0.f);
-		}
-
-		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveBackward))
-		{
-			m_TargetPos.y -= m_TileSize;
-			SetRotation(270.f);
-		}
-
-		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveForward))
-		{
-			m_TargetPos.y += m_TileSize;
-			SetRotation(90.f);
-		}
-
-		if (isMoving)
-		{
-			m_JumpTimer = m_JumpTime;
-		}
-	}
-	else
-	{
-		if (m_JumpTimer >= 0.f)
-		{
-			m_JumpTimer -= sceneContext.pGameTime->GetElapsed();
-			MathHelper::Clamp(m_JumpTimer, m_JumpTime, 0.f);
-		}
-	}
+	UpdateMovement(sceneContext);
 
 	//implement Squish
 
@@ -91,6 +49,71 @@ void CrossyCharacter::DrawImGui()
 	//ImGui::Text("RotationTime: %f", m_RotationTime);
 	//ImGui::Text("MaxSquishScale: %f", m_MaxSquishScale);
 	//ImGui::End();
+}
+
+void CrossyCharacter::UpdateMovement(const SceneContext& sceneContext)
+{
+
+	bool isMoving = false;
+
+	if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveForward)
+		|| sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveBackward)
+		|| sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveLeft)
+		|| sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveRight))
+		isMoving = true;
+
+	if (m_JumpTimer <= 0.f)
+	{
+		m_PrevPos = m_TargetPos;
+
+		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveRight))
+		{
+			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x) + 1, int(m_TargetPos.y)))
+			{
+				m_TargetPos.x += m_TileSize;
+				SetRotation(180.f);
+			}
+		}
+
+		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveLeft))
+		{
+			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x) - 1, int(m_TargetPos.y)))
+			{
+				m_TargetPos.x -= m_TileSize;
+				SetRotation(0.f);
+			}
+		}
+		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveBackward))
+		{
+			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x), int(m_TargetPos.y-1)))
+			{
+				m_TargetPos.y -= m_TileSize;
+				SetRotation(270.f);
+			}
+		}
+
+		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveForward))
+		{
+			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x), int(m_TargetPos.y+1)))
+			{
+				m_TargetPos.y += m_TileSize;
+				SetRotation(90.f);
+			}
+		}
+
+		if (isMoving)
+		{
+			m_JumpTimer = m_JumpTime;
+		}
+	}
+	else
+	{
+		if (m_JumpTimer >= 0.f)
+		{
+			m_JumpTimer -= sceneContext.pGameTime->GetElapsed();
+			MathHelper::Clamp(m_JumpTimer, m_JumpTime, 0.f);
+		}
+	}
 }
 
 void CrossyCharacter::MoveCharacter()
