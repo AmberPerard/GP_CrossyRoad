@@ -11,4 +11,5 @@ TerrainSlice::TerrainSlice(int amountOfObstacles, int maxWidth, UINT textureID)
 
 TerrainSlice::~TerrainSlice()
 {
+
 }

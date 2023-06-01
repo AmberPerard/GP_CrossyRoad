@@ -37,9 +37,12 @@
     <ClCompile Include="Scenes\Week 10\PostProcessingScene.cpp" />
     <ClCompile Include="Materials\Post\PostGrayscale.cpp" />
     <ClCompile Include="Materials\Post\PostBlur.cpp" />
-    <ClCompile Include="Prefabs\CrossyRoad\TerrainSlice.cpp" />
-    <ClCompile Include="Prefabs\CrossyRoad\GrassSlice.cpp" />
+    <ClCompile Include="Prefabs\CrossyRoad\Env\TerrainSlice.cpp" />
+    <ClCompile Include="Prefabs\CrossyRoad\Env\GrassSlice.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\TerrainGenerator.cpp" />
+    <ClCompile Include="Prefabs\CrossyRoad\Env\RoadSlice.cpp" />
+    <ClCompile Include="Prefabs\CrossyRoad\Env\RailRoadSlice.cpp" />
+    <ClCompile Include="Prefabs\CrossyRoad\Env\WaterSlice.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h" />
@@ -77,8 +80,11 @@
     <ClInclude Include="Scenes\Week 10\PostProcessingScene.h" />
     <ClInclude Include="Materials\Post\PostGrayscale.h" />
     <ClInclude Include="Materials\Post\PostBlur.h" />
-    <ClInclude Include="Prefabs\CrossyRoad\TerrainSlice.h" />
-    <ClInclude Include="Prefabs\CrossyRoad\GrassSlice.h" />
+    <ClInclude Include="Prefabs\CrossyRoad\Env\TerrainSlice.h" />
+    <ClInclude Include="Prefabs\CrossyRoad\Env\GrassSlice.h" />
     <ClInclude Include="Prefabs\CrossyRoad\TerrainGenerator.h" />
+    <ClInclude Include="Prefabs\CrossyRoad\Env\RoadSlice.h" />
+    <ClInclude Include="Prefabs\CrossyRoad\Env\RailRoadSlice.h" />
+    <ClInclude Include="Prefabs\CrossyRoad\Env\WaterSlice.h" />
   </ItemGroup>
 </Project>

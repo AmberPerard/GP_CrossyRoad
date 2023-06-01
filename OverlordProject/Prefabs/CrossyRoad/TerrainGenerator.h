@@ -44,8 +44,9 @@ private:
 	int m_MaxWidth;
 
 	//Terrain Generation variables
-	int m_CurrentSliceNumber;
-	int m_SlicesAhead;
+	int m_CurrentSliceNumber{};
+	int m_SlicesAhead{};
+	int m_NrBlankGrassSlices{};
 	const int m_MaxBlankSlices = 5;
 
 	//Map for the weights of the terrain types

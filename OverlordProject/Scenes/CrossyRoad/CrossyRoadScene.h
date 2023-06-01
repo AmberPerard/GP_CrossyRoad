@@ -16,6 +16,7 @@ public:
 protected:
 	void Initialize() override;
 	void OnGUI() override;
+	void Update() override;
 
 private:
 	enum InputIds

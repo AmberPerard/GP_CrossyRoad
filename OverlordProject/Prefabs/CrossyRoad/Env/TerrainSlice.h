@@ -1,5 +1,4 @@
 #pragma once
-#include "TerrainGenerator.h"
 
 class TerrainSlice : public GameObject
 {

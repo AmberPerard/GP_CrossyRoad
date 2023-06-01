@@ -48,3 +48,8 @@ void CrossyRoadScene::OnGUI()
 	m_pCharacter->DrawImGui();
 	m_pCamera->DrawImGui();
 }
+
+void CrossyRoadScene::Update()
+{
+	GameScene::Update();
+}
