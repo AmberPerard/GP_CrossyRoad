@@ -35,7 +35,7 @@ void FollowCamera::Update(const SceneContext& sceneContext)
 					cos(XMConvertToRadians(m_TotalYaw)) * cos(XMConvertToRadians(m_TotalPitch))
 	};
 
-	m_StartPos = XMFLOAT3(-forward.x * m_Distance, -forward.y * m_Distance, -forward.z * m_Distance + 2);
+	m_StartPos = XMFLOAT3(-forward.x * m_Distance, -forward.y * m_Distance, -forward.z * m_Distance + 5);
 
 	if (m_DisableFollow) return;
 	//follow the player in the z direction

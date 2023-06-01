@@ -31,7 +31,7 @@ private:
 	CrossyCharacter* m_pCharacter{};
 	TerrainGenerator* m_pTerrainGenerator{};
 	FollowCamera* m_pCamera{};
-	float m_Pitch{50.f}, m_Yaw{-15.f}, m_Distance{10.f};
+	float m_Pitch{45.f}, m_Yaw{-15.f}, m_Distance{20.f};
 
 	XMFLOAT3 m_LightDirection{ 0.5f, -0.5f, 0.5f };
 
