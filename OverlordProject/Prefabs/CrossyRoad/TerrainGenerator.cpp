@@ -32,6 +32,26 @@ TerrainGenerator::~TerrainGenerator()
 
 void TerrainGenerator::Reset()
 {
+	for (auto& pair : m_TerrainSlices)
+	{
+		RemoveChild(pair.second, true);
+	}
+	m_TerrainSlices.clear();
+
+	m_CurrentSlice = nullptr;
+	m_CurrentSliceNumber = 0;
+	//put a few grass slices down by default for the player to start on
+		//first 5 slices before slice 0
+	TerrainSlice* slice = nullptr;
+	for (int i{ -5 }; i < 0; ++i)
+	{
+		auto grass = new GrassSlice(100, m_MaxWidth, m_GrassTextureID);
+		slice = AddChild(grass);
+		m_TerrainSlices.insert(std::pair{ i, slice });
+		slice->GetTransform()->Translate(0.f, -0.4f, float(i));
+	}
+
+	m_NrBlankGrassSlices = m_MaxBlankSlices;
 }
 
 TerrainSlice* TerrainGenerator::GetCurrentTerrain(int sliceNr)
@@ -56,7 +76,7 @@ TerrainSlice* TerrainGenerator::GetPreviousTerrain()
 
 bool TerrainGenerator::IsCurrentSlicePassable(int xPos, int sliceNr)
 {
-	TerrainSlice* pSlice = m_TerrainSlices.find(sliceNr )->second;
+	TerrainSlice* pSlice = m_TerrainSlices.find(sliceNr)->second;
 	if (pSlice)
 	{
 		return pSlice->IsSlicePassable(xPos);
@@ -95,7 +115,7 @@ void TerrainGenerator::Initialize(const SceneContext& /*sceneContext*/)
 		auto grass = new GrassSlice(100, m_MaxWidth, m_GrassTextureID);
 		slice = AddChild(grass);
 		m_TerrainSlices.insert(std::pair{ i, slice });
-		slice->GetTransform()->Translate(0.f, -0.4f,  float(i));
+		slice->GetTransform()->Translate(0.f, -0.4f, float(i));
 	}
 
 	m_NrBlankGrassSlices = m_MaxBlankSlices;
@@ -117,12 +137,15 @@ void TerrainGenerator::Update(const SceneContext& /*sceneContext*/)
 			SpawnNewSlice();
 		}
 
-		//Despawn old slices
-		auto slice = m_TerrainSlices.find(((int)m_TrackedCharacter->GetTransform()->GetPosition().z - m_SlicesAhead));
-		if (slice != m_TerrainSlices.end())
+		if (!m_TrackedCharacter->IsDead())
 		{
-			RemoveChild(slice->second, true);
-			m_TerrainSlices.erase(slice);
+			//Despawn old slices
+			auto slice = m_TerrainSlices.find(((int)m_TrackedCharacter->GetTransform()->GetPosition().z - m_SlicesAhead));
+			if (slice != m_TerrainSlices.end())
+			{
+				RemoveChild(slice->second, true);
+				m_TerrainSlices.erase(slice);
+			}
 		}
 
 	}
@@ -213,7 +236,7 @@ void TerrainGenerator::SpawnNewSlice()
 
 	if (slice != nullptr) {
 		m_TerrainSlices.insert(std::pair(m_CurrentSliceNumber, (slice)));
-		slice->GetTransform()->Translate(0.f, -0.4f,  float(m_CurrentSliceNumber));
+		slice->GetTransform()->Translate(0.f, -0.4f, float(m_CurrentSliceNumber));
 		++m_CurrentSliceNumber;
 
 	}

@@ -13,6 +13,7 @@ public:
 	void Reset();
 
 	void DrawImGui();
+	bool m_DisableFollow{ false };
 
 protected:
 

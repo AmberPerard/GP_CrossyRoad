@@ -17,7 +17,9 @@ public:
 	void DrawImGui();
 	XMFLOAT2 GetPrevPosition() const { return m_PrevPos; };
 	void SetTerrain(TerrainGenerator* pTerrainGenerator);
+	bool IsDead() const { return m_IsDead; };
 
+	void Respawn();
 protected:
 	void Initialize(const SceneContext&) override;
 	void Update(const SceneContext&) override;
@@ -52,5 +54,8 @@ private:
 
 	void RotateCharacter(const SceneContext& sceneContext);
 	void SetRotation(float rotation);
+
+	//charachter life
+	bool m_IsDead{ false };
 };
 

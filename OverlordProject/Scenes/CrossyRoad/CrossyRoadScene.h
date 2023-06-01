@@ -34,4 +34,8 @@ private:
 	float m_Pitch{50.f}, m_Yaw{-15.f}, m_Distance{10.f};
 
 	XMFLOAT3 m_LightDirection{ 0.5f, -0.5f, 0.5f };
+
+
+	//Game over
+	bool m_IsGameOver{ false };
 };

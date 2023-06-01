@@ -14,6 +14,7 @@ public:
 
 	//Custom functions
 	virtual bool IsSlicePassable(int xPos) override;
+	bool IsLilyPad(int xPos);
 	void Initialize(const SceneContext&) override;
 private:
 	std::map<int, GameObject*> m_pLilyPads;

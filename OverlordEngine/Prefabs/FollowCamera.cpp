@@ -37,6 +37,7 @@ void FollowCamera::Update(const SceneContext& sceneContext)
 
 	m_StartPos = XMFLOAT3(-forward.x * m_Distance, -forward.y * m_Distance, -forward.z * m_Distance + 2);
 
+	if (m_DisableFollow) return;
 	//follow the player in the z direction
 	float value{ 2.f * sceneContext.pGameTime->GetElapsed() };
 	MathHelper::Clamp(value, 1.f, 0.f);
@@ -59,6 +60,7 @@ void FollowCamera::SetRotation(float pitch, float yaw)
 void FollowCamera::Reset()
 {
 	GetTransform()->Translate(m_StartPos);
+	m_DisableFollow = false;
 }
 
 void FollowCamera::DrawImGui()

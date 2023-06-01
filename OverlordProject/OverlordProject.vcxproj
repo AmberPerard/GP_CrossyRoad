@@ -93,6 +93,7 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Prefabs\CrossyRoad\Env\LillyPad.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\Obstacle.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\GrassSlice.cpp" />
     <ClCompile Include="Materials\Post\PostGrayscale.cpp" />
@@ -157,6 +158,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Prefabs\CrossyRoad\Env\LillyPad.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Env\Obstacle.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Env\GrassSlice.h" />
     <ClInclude Include="Materials\Post\PostGrayscale.h" />

@@ -2,6 +2,7 @@
 #include "CrossyCharacter.h"
 
 #include "TerrainGenerator.h"
+#include "Env/WaterSlice.h"
 #include "Materials/Shadow/DiffuseMaterial_Shadow.h"
 
 CrossyCharacter::CrossyCharacter(CharacterDesc characterDesc)
@@ -24,6 +25,15 @@ void CrossyCharacter::SetTerrain(TerrainGenerator* pTerrainGenerator)
 	m_pTerrainGenerator = pTerrainGenerator;
 }
 
+void CrossyCharacter::Respawn()
+{
+	m_IsDead = false;
+	m_TargetPos = {0,0};
+	m_PrevPos = {0,0};
+	m_pCharachter->GetTransform()->Translate(0,0,0);
+	m_pCharachter->GetTransform()->Rotate(0, 0, 0);
+}
+
 void CrossyCharacter::Initialize(const SceneContext& sceneContext)
 {
 	GameObject::Initialize(sceneContext);
@@ -31,7 +41,22 @@ void CrossyCharacter::Initialize(const SceneContext& sceneContext)
 
 void CrossyCharacter::Update(const SceneContext& sceneContext)
 {
-	GameObject::Update(sceneContext);
+	if (m_IsDead) return;
+	
+	//check if you just jumped into the water
+	WaterSlice* pWater;
+	if(m_pTerrainGenerator)
+	{
+		pWater = dynamic_cast<WaterSlice*>(m_pTerrainGenerator->GetCurrentTerrain(int(m_PrevPos.y)));
+		if (pWater)
+		{
+			if(!pWater->IsLilyPad(int(m_PrevPos.x)))
+			{
+				m_IsDead = true;
+			}
+		}
+	}
+
 	UpdateMovement(sceneContext);
 
 	//implement Squish
@@ -44,10 +69,6 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 void CrossyCharacter::DrawImGui()
 {
 	//ImGui::Begin("Character");
-	//ImGui::DragFloat("JumpTime: %f", m_JumpTime);
-	//ImGui::Text("TileSize: %f", m_TileSize);
-	//ImGui::Text("RotationTime: %f", m_RotationTime);
-	//ImGui::Text("MaxSquishScale: %f", m_MaxSquishScale);
 	//ImGui::End();
 }
 

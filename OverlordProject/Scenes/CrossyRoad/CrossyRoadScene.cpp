@@ -62,4 +62,25 @@ void CrossyRoadScene::Update()
 {
 	GameScene::Update();
 	m_SceneContext.pLights->SetDirectionalLight({ -5.f, 5.f, m_pCharacter->GetPrevPosition().y - 2.1f }, m_LightDirection);
+
+	if (m_pCharacter->IsDead() && !m_IsGameOver)
+	{
+		//hide the player under the scene
+		m_pCharacter->GetTransform()->Translate(0, -2.f,0);
+		m_pCamera->m_DisableFollow = true;
+		m_IsGameOver = true;
+	}
+
+	if (m_IsGameOver && m_SceneContext.pInput->IsActionTriggered(Restart))
+	{
+		//spawn new terrain
+		m_pTerrainGenerator->Reset();
+
+		//reset player character & camera
+		m_pCharacter->Respawn();
+		if (m_pCamera) m_pCamera->Reset();
+
+		//reset game over bool
+		m_IsGameOver = false;
+	}
 }
