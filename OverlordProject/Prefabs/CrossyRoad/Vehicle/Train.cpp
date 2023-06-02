@@ -2,6 +2,7 @@
 #include "Train.h"
 
 #include "Materials/Shadow/DiffuseMaterial_Shadow.h"
+#include "Prefabs/CrossyRoad/CrossyCharacter.h"
 
 UINT Train::m_TrainFrontTextureID = 0;
 UINT Train::m_TrainMiddleTextureID = 0;
@@ -31,13 +32,36 @@ void Train::Initialize(const SceneContext&)
 
 	GetTransform()->Scale(1.f);
 	GetTransform()->Rotate(0.f, float(m_Direction) * 180.f, 0.f, true);
+	m_pTrainCollision->GetTransform()->Rotate(0.f, float(m_Direction) * 180.f, 0.f, true);
 	GetTransform()->Translate(m_xPos, 0.2f, 0.f);
+
+	m_pTrainCollision->SetOnTriggerCallBack([=](GameObject* pTrigger, GameObject* pOther, PxTriggerAction action)
+		{
+			OnCollision(pTrigger, pOther, action);
+		});
+
 }
 
 void Train::Update(const SceneContext& sceneContext)
 {
 	float XMovement = m_Speed * sceneContext.pGameTime->GetElapsed() * m_Direction;
 	GetTransform()->Translate(GetTransform()->GetPosition().x + XMovement, GetTransform()->GetPosition().y, GetTransform()->GetPosition().z);
+
+	//align collider with the train
+	XMFLOAT3 pos = GetTransform()->GetWorldPosition();
+	m_pTrainCollision->GetTransform()->Translate(pos.x, pos.y, pos.z);
+}
+
+void Train::OnCollision(GameObject*, GameObject* pOther, PxTriggerAction action)
+{
+	if (action == PxTriggerAction::ENTER)
+	{
+		auto pCharacter = dynamic_cast<CrossyCharacter*>(pOther);
+		if (pCharacter != nullptr)
+		{
+			pCharacter->SetDead(true);
+		}
+	}
 }
 
 void Train::InitializeTextures()
@@ -88,4 +112,14 @@ void Train::ChooseCorrectTrainPiece()
 		break;
 	default:;
 	}
+
+	//set basics for the collision of the train
+	m_pTrainCollision = new GameObject();
+	m_pTrainCollision->GetTransform()->Translate(GetTransform()->GetPosition().x, GetTransform()->GetPosition().y, GetTransform()->GetPosition().z);
+	RigidBodyComponent* pRigid = m_pTrainCollision->AddComponent(new RigidBodyComponent());
+	physx::PxConvexMesh* pConvexTrainMesh = ContentManager::Load<PxConvexMesh>(L"../Resources/Meshes/CrossyRoad/Vehicle/front_train.ovpc");
+	PxMaterial* pDefaultMat = PxGetPhysics().createMaterial(0.f, 0.f, 0.f);
+	pRigid->AddCollider(PxConvexMeshGeometry(pConvexTrainMesh, PxMeshScale(10)), *pDefaultMat, true);
+
+	AddChild(m_pTrainCollision);
 }

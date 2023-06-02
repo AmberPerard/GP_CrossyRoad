@@ -25,19 +25,36 @@ void Car::Initialize(const SceneContext&)
 	{
 		InitializeTextures();
 	}
-
 	ChooseRandomCar();
-	//set the collider
+
+	m_pCarCollision->SetOnTriggerCallBack([=](GameObject* pTrigger, GameObject* pOther, PxTriggerAction action)
+		{
+			OnCollision(pTrigger, pOther, action);
+		});
+
 }
 
 void Car::Update(const SceneContext& sceneContext)
 {
 	//move the car model
 	float XMovement = m_Speed * sceneContext.pGameTime->GetElapsed() * m_Direction;
-	m_pCarMesh->GetTransform()->Translate(GetTransform()->GetPosition().x + XMovement, GetTransform()->GetPosition().y, 0.f);
+	GetTransform()->Translate(GetTransform()->GetPosition().x + XMovement, GetTransform()->GetPosition().y, GetTransform()->GetPosition().z);
 
-	//move the collider
-	m_pCarCollision->GetTransform()->Translate(GetTransform()->GetPosition().x + XMovement, GetTransform()->GetPosition().y, 0.f);
+	//align collider with the car
+	XMFLOAT3 pos = GetTransform()->GetWorldPosition();
+	m_pCarCollision->GetTransform()->Translate(pos.x, pos.y, pos.z);
+}
+
+void Car::OnCollision(GameObject*, GameObject* pOther, PxTriggerAction action)
+{
+	if (action == PxTriggerAction::ENTER)
+	{
+		auto pCharacter = dynamic_cast<CrossyCharacter*>(pOther);
+		if (pCharacter != nullptr)
+		{
+			pCharacter->SetDead(true);
+		}
+	}
 }
 
 void Car::InitializeTextures()
@@ -82,10 +99,12 @@ void Car::InitializeTextures()
 void Car::ChooseRandomCar()
 {
 	carModel random = carModel(rand() % 5);
-	m_pCarCollision = new GameObject();
-	m_pCarMesh = new GameObject();
 	BaseMaterial* material = nullptr;
 	ModelComponent* pModel = nullptr;
+
+	//set basics for the collision of the car
+	m_pCarCollision = new GameObject();
+	m_pCarCollision->GetTransform()->Translate(GetTransform()->GetPosition().x, GetTransform()->GetPosition().y, GetTransform()->GetPosition().z);
 	RigidBodyComponent* pRigid = nullptr;
 	physx::PxConvexMesh* pConvexCarMesh = nullptr;
 	PxMaterial* pDefaultMat = PxGetPhysics().createMaterial(0.f, 0.f, 0.f);
@@ -93,48 +112,50 @@ void Car::ChooseRandomCar()
 	switch (random)
 	{
 	case carModel::Orange:
-		pModel = m_pCarCollision->AddComponent(new ModelComponent(L"../Resources/Meshes/CrossyRoad/Vehicle/orange_car.ovm"));
+		pModel = AddComponent(new ModelComponent(L"../Resources/Meshes/CrossyRoad/Vehicle/orange_car.ovm"));
 		material = MaterialManager::Get()->GetMaterial(m_OrangeTextureID);
-		pRigid = m_pCarMesh->AddComponent(new RigidBodyComponent());
+		pModel->SetMaterial(material);
+		pRigid = m_pCarCollision->AddComponent(new RigidBodyComponent());
 		pConvexCarMesh = ContentManager::Load<PxConvexMesh>(L"../Resources/Meshes/CrossyRoad/Vehicle/orange_car.ovpc");
-		pRigid->AddCollider(PxConvexMeshGeometry(pConvexCarMesh, PxMeshScale(10)), *pDefaultMat); pModel->SetMaterial(material);
+		pRigid->AddCollider(PxConvexMeshGeometry(pConvexCarMesh, PxMeshScale(10)), *pDefaultMat, true);
+
 		break;
 	case carModel::Blue:
-		pModel = m_pCarCollision->AddComponent(new ModelComponent(L"../Resources/Meshes/CrossyRoad/Vehicle/blue_car.ovm"));
+		pModel = AddComponent(new ModelComponent(L"../Resources/Meshes/CrossyRoad/Vehicle/blue_car.ovm"));
 		material = MaterialManager::Get()->GetMaterial(m_BlueTextureID);
 		pModel->SetMaterial(material);
-		pRigid = m_pCarMesh->AddComponent(new RigidBodyComponent());
+		pRigid = m_pCarCollision->AddComponent(new RigidBodyComponent());
 		pConvexCarMesh = ContentManager::Load<PxConvexMesh>(L"../Resources/Meshes/CrossyRoad/Vehicle/blue_car.ovpc");
-		pRigid->AddCollider(PxConvexMeshGeometry(pConvexCarMesh, PxMeshScale(10)), *pDefaultMat);
+		pRigid->AddCollider(PxConvexMeshGeometry(pConvexCarMesh, PxMeshScale(10)), *pDefaultMat, true);
 		break;
 	case carModel::Green:
-		pModel = m_pCarCollision->AddComponent(new ModelComponent(L"../Resources/Meshes/CrossyRoad/Vehicle/green_car.ovm"));
+		pModel = AddComponent(new ModelComponent(L"../Resources/Meshes/CrossyRoad/Vehicle/green_car.ovm"));
 		material = MaterialManager::Get()->GetMaterial(m_GreenTextureID);
 		pModel->SetMaterial(material);
-		pRigid = m_pCarMesh->AddComponent(new RigidBodyComponent());
+		pRigid = m_pCarCollision->AddComponent(new RigidBodyComponent());
 		pConvexCarMesh = ContentManager::Load<PxConvexMesh>(L"../Resources/Meshes/CrossyRoad/Vehicle/green_car.ovpc");
-		pRigid->AddCollider(PxConvexMeshGeometry(pConvexCarMesh, PxMeshScale(10)), *pDefaultMat);
+		pRigid->AddCollider(PxConvexMeshGeometry(pConvexCarMesh, PxMeshScale(10)), *pDefaultMat, true);
 		break;
 	case carModel::Yellow:
-		pModel = m_pCarCollision->AddComponent(new ModelComponent(L"../Resources/Meshes/CrossyRoad/Vehicle/yellow_car.ovm"));
+		pModel = AddComponent(new ModelComponent(L"../Resources/Meshes/CrossyRoad/Vehicle/yellow_car.ovm"));
 		material = MaterialManager::Get()->GetMaterial(m_YellowTextureID);
 		pModel->SetMaterial(material);
-		pRigid = m_pCarMesh->AddComponent(new RigidBodyComponent());
+		pRigid = m_pCarCollision->AddComponent(new RigidBodyComponent());
 		pConvexCarMesh = ContentManager::Load<PxConvexMesh>(L"../Resources/Meshes/CrossyRoad/Vehicle/yellow_car.ovpc");
-		pRigid->AddCollider(PxConvexMeshGeometry(pConvexCarMesh, PxMeshScale(10)), *pDefaultMat);
+		pRigid->AddCollider(PxConvexMeshGeometry(pConvexCarMesh, PxMeshScale(10)), *pDefaultMat, true);
 		break;
 	case carModel::Purple:
-		pModel = m_pCarCollision->AddComponent(new ModelComponent(L"../Resources/Meshes/CrossyRoad/Vehicle/purple_car.ovm"));
+		pModel = AddComponent(new ModelComponent(L"../Resources/Meshes/CrossyRoad/Vehicle/purple_car.ovm"));
 		material = MaterialManager::Get()->GetMaterial(m_PurpleTextureID);
 		pModel->SetMaterial(material);
-		pRigid = m_pCarMesh->AddComponent(new RigidBodyComponent());
+		pRigid = m_pCarCollision->AddComponent(new RigidBodyComponent());
 		pConvexCarMesh = ContentManager::Load<PxConvexMesh>(L"../Resources/Meshes/CrossyRoad/Vehicle/purple_car.ovpc");
-		pRigid->AddCollider(PxConvexMeshGeometry(pConvexCarMesh, PxMeshScale(10)), *pDefaultMat);
+		pRigid->AddCollider(PxConvexMeshGeometry(pConvexCarMesh, PxMeshScale(10)), *pDefaultMat, true);
 		break;
 	default:;
 	}
-	m_pCarMesh->GetTransform()->Scale(1.f);
-	m_pCarMesh->GetTransform()->Rotate(0.f, -m_Direction * 90.f, 0.f, true);
+	GetTransform()->Scale(1.f);
+	GetTransform()->Rotate(0.f, -m_Direction * 90.f, 0.f, true);
+	m_pCarCollision->GetTransform()->Rotate(0.f, -m_Direction * 90.f, 0.f, true);
 	AddChild(m_pCarCollision);
-	AddChild(m_pCarMesh);
 }

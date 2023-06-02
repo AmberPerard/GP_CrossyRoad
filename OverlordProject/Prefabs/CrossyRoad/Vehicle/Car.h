@@ -1,4 +1,6 @@
 #pragma once
+#include "Prefabs/CrossyRoad/CrossyCharacter.h"
+
 class Car final : public GameObject
 {
 public:
@@ -22,6 +24,7 @@ public:
 protected:
 	void Initialize(const SceneContext&) override;
 	void Update(const SceneContext&) override;
+	void OnCollision(GameObject* pTrigger, GameObject* pOther, PxTriggerAction action);
 private:
 	float m_Speed;
 	int m_Direction;
@@ -32,10 +35,11 @@ private:
 	static UINT m_GreenTextureID;
 	static UINT m_BlueTextureID;
 
-	GameObject* m_pCarMesh{};
-	GameObject* m_pCarCollision{};
+	GameObject* m_pCarCollision;
 
 	void InitializeTextures();
 	void ChooseRandomCar();
 };
+
+
 

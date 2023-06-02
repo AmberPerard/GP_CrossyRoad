@@ -20,6 +20,7 @@ public:
 protected:
 	void Initialize(const SceneContext&) override;
 	void Update(const SceneContext&) override;
+	void OnCollision(GameObject* pTrigger, GameObject* pOther, PxTriggerAction action);
 private:
 	float m_Speed;
 	int m_Direction;

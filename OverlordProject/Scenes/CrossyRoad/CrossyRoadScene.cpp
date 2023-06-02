@@ -5,7 +5,7 @@ void CrossyRoadScene::Initialize()
 {
 	m_SceneContext.settings.enableOnGUI = true;
 	m_SceneContext.settings.drawGrid = false;
-	m_SceneContext.settings.drawPhysXDebug = false;
+	m_SceneContext.settings.drawPhysXDebug = true;
 	m_SceneContext.settings.drawUserDebug = false;
 
 	//Ground Plane
