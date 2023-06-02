@@ -5,6 +5,8 @@ void CrossyRoadScene::Initialize()
 {
 	m_SceneContext.settings.enableOnGUI = true;
 	m_SceneContext.settings.drawGrid = false;
+	m_SceneContext.settings.drawPhysXDebug = false;
+	m_SceneContext.settings.drawUserDebug = false;
 
 	//Ground Plane
 	const auto pDefaultMaterial = PxGetPhysics().createMaterial(0.5f, 0.5f, 0.5f);
@@ -94,11 +96,4 @@ void CrossyRoadScene::Update()
 		//reset game over bool
 		m_IsGameOver = false;
 	}
-}
-
-void CrossyRoadScene::PostDraw()
-{
-	//Draw ShadowMap (Debug Visualization)
-	//ShadowMapRenderer::Get()->Debug_DrawDepthSRV({ m_SceneContext.windowWidth - 10.f, 10.f }, { 0.5f, 0.5f }, { 1.f,0.f });
-
 }

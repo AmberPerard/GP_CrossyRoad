@@ -17,8 +17,6 @@ protected:
 	void Initialize() override;
 	void OnGUI() override;
 	void Update() override;
-	void PostDraw() override;
-
 private:
 	enum InputIds
 	{

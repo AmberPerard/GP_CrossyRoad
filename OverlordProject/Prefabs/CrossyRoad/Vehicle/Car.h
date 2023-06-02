@@ -2,6 +2,15 @@
 class Car final : public GameObject
 {
 public:
+
+	enum class carModel
+	{
+		Orange,
+		Blue,
+		Green,
+		Yellow,
+		Purple
+	};
 	Car(float speed, int direction);
 	~Car() override;
 
@@ -17,6 +26,15 @@ private:
 	float m_Speed;
 	int m_Direction;
 
-	GameObject* m_pCarCollision;
+	static UINT m_OrangeTextureID;
+	static UINT m_YellowTextureID;
+	static UINT m_PurpleTextureID;
+	static UINT m_GreenTextureID;
+	static UINT m_BlueTextureID;
+
+	GameObject* m_pCarCollision{};
+
+	void InitializeTextures();
+	void ChooseRandomCar();
 };
 

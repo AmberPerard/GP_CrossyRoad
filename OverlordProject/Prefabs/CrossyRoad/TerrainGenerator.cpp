@@ -95,6 +95,7 @@ bool TerrainGenerator::IsCurrentSlicePassable(int xPos, int sliceNr)
 
 void TerrainGenerator::Initialize(const SceneContext& /*sceneContext*/)
 {
+	//setting textures if they are not set yet
 	if (m_GrassTextureID == 0)
 	{
 		auto material = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();

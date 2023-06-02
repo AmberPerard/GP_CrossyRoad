@@ -26,16 +26,21 @@ public:
 
 protected:
 	void Initialize(const SceneContext&) override;
-	void Draw(const SceneContext&) override;
 	void Update(const SceneContext&) override;
 private:
 	int m_CarDirection;
 	float m_CarSpeed;
 
 	float m_CarSpawnInterval;
+	float m_CarSpawnMaxTime{4.f};
+	float m_CarSpawnMinTime{2.f};
+	void SetCarSpawnInterval();
+
 	float m_CarSpawnTimer;
 
 	std::vector<Car*> m_pCars;
+	void SpawnCar();
+	void deleteCars();
 };
 
 
