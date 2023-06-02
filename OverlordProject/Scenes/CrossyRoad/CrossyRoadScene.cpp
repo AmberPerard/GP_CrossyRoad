@@ -74,7 +74,6 @@ void CrossyRoadScene::OnGUI()
 
 void CrossyRoadScene::Update()
 {
-	GameScene::Update();
 	m_SceneContext.pLights->SetDirectionalLight({ m_LightPos.x, m_LightPos.y,  m_pCharacter->GetPrevPosition().y - m_LightPos.z }, m_LightDirection);
 	if (m_pCharacter->IsDead() && !m_IsGameOver)
 	{
@@ -84,8 +83,9 @@ void CrossyRoadScene::Update()
 		m_IsGameOver = true;
 	}
 
-	if (m_IsGameOver && m_SceneContext.pInput->IsActionTriggered(Restart))
+	if ((m_IsGameOver && m_SceneContext.pInput->IsActionTriggered(Restart))|| (m_IsGameOver && m_IsStarted))
 	{
+		m_IsStarted = false;
 		//spawn new terrain
 		m_pTerrainGenerator->Reset();
 

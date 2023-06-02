@@ -38,5 +38,6 @@ private:
 
 
 	//Game over
+	bool m_IsStarted{ true };
 	bool m_IsGameOver{ false };
 };

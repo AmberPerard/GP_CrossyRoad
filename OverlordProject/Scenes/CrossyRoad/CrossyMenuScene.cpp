@@ -39,26 +39,22 @@ void CrossyMenuScene::Initialize()
 	//activate
 	pCamComp->SetActive(true);
 
-
-	//GameObject* pSpriteObject{};
-
 	//pSpriteObject = AddChild(new GameObject());
 	//pSpriteObject->AddComponent(new SpriteComponent(L"../Resources/Textures/crossy/GP2_Exam2023_MainMenu_Background.png", { 0, 1 }));
 	//pSpriteObject->GetTransform()->Translate(0.f, m_SceneContext.windowHeight, 0.f);
 	//pSpriteObject->GetTransform()->Scale(0.3f, 0.3f, 0.3f);
 
-	//pSpriteObject = AddChild(new GameObject());
-	//pSpriteObject->AddComponent(new SpriteComponent(L"../Resources/Textures/crossy/GP2_Exam2023_MainMenu_Background.png", { 0, 1 }));
-	//pSpriteObject->GetTransform()->Translate(0.f, m_SceneContext.windowHeight, 0.f);
-	//pSpriteObject->GetTransform()->Scale(1.01f, 1.f, 1.0f);
+	m_pBackground = AddChild(new GameObject());
+	m_pBackground->AddComponent(new SpriteComponent(L"../Resources/Textures/crossy/GP2_Exam2023_MainMenu_Background.png", { 0, 1 }));
+	m_pBackground->GetTransform()->Translate(0.f, m_SceneContext.windowHeight, 0.990f);
+	m_pBackground->GetTransform()->Scale(1.01f, 1.f, 1.0f);
 
 
 
-	GameObject* pStartButton{};
-	pStartButton = AddChild(new GameObject());
-	pStartButton->SetTag(L"Start");
+	m_pStartButton = AddChild(new GameObject());
+	m_pStartButton->SetTag(L"Start");
 
-	auto modComp = pStartButton->AddComponent(new ModelComponent(L"../Resources/Meshes/CrossyRoad/Character/Wolf.ovm"));
+	auto modComp = m_pStartButton->AddComponent(new ModelComponent(L"../Resources/Meshes/CrossyRoad/Character/Wolf.ovm"));
 	pAnimator = modComp->GetAnimator();
 	pAnimator->SetAnimation(L"Idle");
 	pAnimator->Play();
@@ -67,13 +63,13 @@ void CrossyMenuScene::Initialize()
 	modComp->SetMaterial(mat);
 
 
-	auto rigi = pStartButton->AddComponent(new RigidBodyComponent(true));
+	auto rigi = m_pStartButton->AddComponent(new RigidBodyComponent(true));
 	PxMaterial* physMat = PxGetPhysics().createMaterial(0.f, 0.f, 0.f);
 	const auto pMesh = ContentManager::Load<PxConvexMesh>(L"../Resources/Meshes/CrossyRoad/Character/Wolf.ovpc");
 	rigi->AddCollider(PxConvexMeshGeometry(pMesh, PxMeshScale(0.04f)), *physMat, false);
 
-	pStartButton->GetTransform()->Scale(0.04f);
-	pStartButton->GetTransform()->Translate(-2.f, -2.f, 0.f);
+	m_pStartButton->GetTransform()->Scale(0.04f);
+	m_pStartButton->GetTransform()->Translate(-2.f, -2.f, -0.990f);
 }
 
 void CrossyMenuScene::OnGUI()
@@ -106,10 +102,15 @@ void CrossyMenuScene::OnGUI()
 	{
 		pAnimator->SetAnimationSpeed(m_AnimationSpeed);
 	}
+
+	ImGui::SliderFloat("Z value wolf", &zValueWolf, -100.f, 100.f);
+	ImGui::SliderFloat("Z value background", &zValuebackground, 0.f, 1.f);
 }
 
 void CrossyMenuScene::Update()
 {
+
+
 	GameObject* picked = m_SceneContext.pCamera->Pick();
 	if (picked)
 	{

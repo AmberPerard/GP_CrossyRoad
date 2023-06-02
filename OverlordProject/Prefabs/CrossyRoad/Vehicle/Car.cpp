@@ -31,6 +31,7 @@ void Car::Initialize(const SceneContext&)
 		{
 			OnCollision(pTrigger, pOther, action);
 		});
+
 	FMOD::System* pFmod = SoundManager::Get()->GetSystem();
 	pFmod->createStream("Resources/Audio/carhit.mp3", FMOD_DEFAULT, nullptr, &m_pCarDeath);
 	pFmod->createStream("Resources/Audio/car-engine-loop-deep.wav", FMOD_DEFAULT, nullptr, &m_pCarPassNoHorn);

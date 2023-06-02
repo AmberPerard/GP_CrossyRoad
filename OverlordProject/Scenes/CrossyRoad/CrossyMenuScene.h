@@ -16,8 +16,14 @@ protected:
 private:
 	ModelAnimator* pAnimator{};
 
+	GameObject* m_pStartButton{};
+	GameObject* m_pBackground{};
+
 	bool m_StartedHovered{ false };
 	bool m_QuitHovered{ false };
+
+	float zValueWolf{ 10.f };
+	float zValuebackground{ 0.f };
 
 	int m_AnimationClipId{ 0 };
 	float m_AnimationSpeed{ 1.f };

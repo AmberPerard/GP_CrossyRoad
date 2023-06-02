@@ -18,7 +18,10 @@ public:
 	XMFLOAT2 GetPrevPosition() const { return m_PrevPos; };
 	void SetTerrain(TerrainGenerator* pTerrainGenerator);
 	bool IsDead() const { return m_IsDead; };
-	void SetDead(bool isDead) { m_IsDead = isDead; };
+	void SetDead(bool isDead)
+	{
+		m_IsDead = isDead;
+	};
 
 	void Respawn();
 protected:
