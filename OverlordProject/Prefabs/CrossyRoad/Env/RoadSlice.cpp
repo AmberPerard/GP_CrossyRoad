@@ -43,7 +43,6 @@ void RoadSlice::Initialize(const SceneContext&)
 
 void RoadSlice::Update(const SceneContext& sceneContext)
 {
-	TerrainSlice::Update(sceneContext);
 	m_CarSpawnTimer += sceneContext.pGameTime->GetElapsed();
 
 	if(m_CarSpawnTimer >= m_CarSpawnInterval)

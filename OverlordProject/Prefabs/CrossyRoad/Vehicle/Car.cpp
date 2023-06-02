@@ -44,7 +44,6 @@ void Car::InitializeTextures()
 	if (m_OrangeTextureID == 0)
 	{
 		auto material = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
-		//Initializing textures for the terrain
 		material->SetDiffuseTexture(L"../Resources/Textures/crossy/Vehicle/orange_car.png");
 		m_OrangeTextureID = material->GetMaterialId();
 	}

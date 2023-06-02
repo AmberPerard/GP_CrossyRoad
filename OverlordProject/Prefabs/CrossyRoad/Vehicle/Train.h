@@ -2,7 +2,14 @@
 class Train final : public GameObject
 {
 public:
-	Train(float speed, int direction);
+	enum class TrainPiece
+	{
+		front,
+		middle,
+		end
+	};
+
+	Train(float speed, int direction, float xPos, TrainPiece whatTrainPiece);
 	~Train() override;
 
 	Train(const Train& other) = delete;
@@ -16,8 +23,17 @@ protected:
 private:
 	float m_Speed;
 	int m_Direction;
+	float m_xPos;
 
-	GameObject* m_pCarCollision;
+	static UINT m_TrainFrontTextureID;
+	static UINT m_TrainMiddleTextureID;
+	static UINT m_TrainEndTextureID;
+
+	TrainPiece m_WhatTrainPiece;
+	GameObject* m_pTrainCollision;
+
+	void InitializeTextures();
+	void ChooseCorrectTrainPiece();
 };
 
 
