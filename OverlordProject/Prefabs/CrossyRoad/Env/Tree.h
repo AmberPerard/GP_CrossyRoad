@@ -20,7 +20,7 @@ public:
 	Tree& operator=(Tree&& other) noexcept = delete;
 protected:
 	void Initialize(const SceneContext&) override;
-	UINT m_SmallTextureID;
-	UINT m_TallTextureID;
+	static UINT m_SmallTextureID;
+	static UINT m_TallTextureID;
 };
 

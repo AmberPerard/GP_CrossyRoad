@@ -13,6 +13,6 @@ class LillyPad final : public GameObject
 	//Custom functions
 	void Initialize(const SceneContext&) override;
 private:
-	UINT m_LilyTextureID{};
+	static UINT m_LilyTextureID;
 };
 

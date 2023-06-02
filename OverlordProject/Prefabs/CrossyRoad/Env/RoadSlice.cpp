@@ -27,3 +27,13 @@ void RoadSlice::Initialize(const SceneContext&)
 
 	//Create the cars that will move on the road
 }
+
+void RoadSlice::Draw(const SceneContext& sceneContext)
+{
+	TerrainSlice::Draw(sceneContext);
+}
+
+void RoadSlice::Update(const SceneContext& sceneContext)
+{
+	TerrainSlice::Update(sceneContext);
+}

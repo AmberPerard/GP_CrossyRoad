@@ -53,10 +53,10 @@ private:
 	std::map<TerrainType, int> m_TerrainWeights{};
 	int m_TotalWeight;
 
-	UINT m_GrassTextureID{};
-	UINT m_WaterTextureID{};
-	UINT m_RoadTextureID{};
-	UINT m_RailroadTextureID{};
+	static UINT m_GrassTextureID;
+	static UINT m_WaterTextureID;
+	static UINT m_RoadTextureID;
+	static UINT m_RailroadTextureID;
 
 
 

@@ -1,19 +1,21 @@
 #include "stdafx.h"
 #include "Tree.h"
-
 #include "Materials/Shadow/DiffuseMaterial_Shadow.h"
+
+ UINT Tree::m_SmallTextureID = 0;
+ UINT Tree::m_TallTextureID = 0;
 
 void Tree::Initialize(const SceneContext&)
 {
 	//make textures only once if they don't exist yet
-	if (!m_SmallTextureID)
+	if (m_SmallTextureID == 0)
 	{
 		auto materialSmallTree = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		materialSmallTree->SetDiffuseTexture(L"../Resources/Textures/crossy/env/tree_small.png");
 		m_SmallTextureID = materialSmallTree->GetMaterialId();
 	}
 
-	if (!m_TallTextureID)
+	if (m_TallTextureID == 0)
 	{
 		auto materialTallTree = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
 		materialTallTree->SetDiffuseTexture(L"../Resources/Textures/crossy/env/tree_tall.png");

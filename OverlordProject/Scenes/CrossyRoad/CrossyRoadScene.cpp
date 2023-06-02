@@ -22,7 +22,7 @@ void CrossyRoadScene::Initialize()
 	m_pCharacter->SetTerrain(m_pTerrainGenerator);
 
 	//Camera
-	// m_pFreeCamera = new FreeCamera();
+	//m_pFreeCamera = new FreeCamera();
 	m_pCamera = new FollowCamera(m_pCharacter, m_Pitch, m_Yaw, m_Distance);
 	AddChild(m_pCamera);
 	SetActiveCamera(m_pCamera->GetComponent<CameraComponent>());
@@ -74,7 +74,6 @@ void CrossyRoadScene::Update()
 {
 	GameScene::Update();
 	m_SceneContext.pLights->SetDirectionalLight({ m_LightPos.x, m_LightPos.y,  m_pCharacter->GetPrevPosition().y - m_LightPos.z }, m_LightDirection);
-	std::cout << m_pCamera->GetTransform()->GetPosition().x << ", " << m_pCamera->GetTransform()->GetPosition().y << ", " << m_pCamera->GetTransform()->GetPosition().z << std::endl;
 	if (m_pCharacter->IsDead() && !m_IsGameOver)
 	{
 		//hide the player under the scene

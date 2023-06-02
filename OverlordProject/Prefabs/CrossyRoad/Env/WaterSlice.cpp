@@ -67,7 +67,7 @@ void WaterSlice::Initialize(const SceneContext&)
 			{
 				pLily = AddChild(new LillyPad());
 				m_pLilyPads.insert(std::pair{ randomNumber, pLily });
-				pLily->GetTransform()->Translate(XMFLOAT3{ static_cast<float>(randomNumber), 0.30f, 0.f });
+				pLily->GetTransform()->Translate(XMFLOAT3{ static_cast<float>(randomNumber), 0.40f, 0.f });
 
 
 				//ad number to used numbers :)

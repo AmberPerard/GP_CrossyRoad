@@ -93,6 +93,7 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Prefabs\CrossyRoad\Vehicle\Car.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\LillyPad.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\Obstacle.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\GrassSlice.cpp" />
@@ -151,6 +152,7 @@
     <ClCompile Include="Prefabs\CrossyRoad\TerrainGenerator.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\WaterSlice.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\Tree.cpp" />
+    <ClCompile Include="Prefabs\CrossyRoad\Vehicle\Train.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\OverlordEngine\OverlordEngine.vcxproj">
@@ -158,6 +160,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Prefabs\CrossyRoad\Vehicle\Car.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Env\LillyPad.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Env\Obstacle.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Env\GrassSlice.h" />
@@ -203,6 +206,7 @@
     <ClInclude Include="Prefabs\CrossyRoad\TerrainGenerator.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Env\WaterSlice.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Env\Tree.h" />
+    <ClInclude Include="Prefabs\CrossyRoad\Vehicle\Train.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

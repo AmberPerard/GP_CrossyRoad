@@ -47,6 +47,8 @@
     <ClCompile Include="Prefabs\CrossyRoad\Env\Tree.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\Rock.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\LillyPad.cpp" />
+    <ClCompile Include="Prefabs\CrossyRoad\Vehicle\Car.cpp" />
+    <ClCompile Include="Prefabs\CrossyRoad\Vehicle\Train.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h" />
@@ -94,5 +96,7 @@
     <ClInclude Include="Prefabs\CrossyRoad\Env\Tree.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Env\Rock.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Env\LillyPad.h" />
+    <ClInclude Include="Prefabs\CrossyRoad\Vehicle\Car.h" />
+    <ClInclude Include="Prefabs\CrossyRoad\Vehicle\Train.h" />
   </ItemGroup>
 </Project>
