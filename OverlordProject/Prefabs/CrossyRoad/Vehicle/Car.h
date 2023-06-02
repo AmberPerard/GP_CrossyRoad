@@ -32,6 +32,7 @@ private:
 	static UINT m_GreenTextureID;
 	static UINT m_BlueTextureID;
 
+	GameObject* m_pCarMesh{};
 	GameObject* m_pCarCollision{};
 
 	void InitializeTextures();

@@ -3,8 +3,8 @@ struct CharacterDesc
 {
 	CharacterDesc(
 		PxMaterial* pMaterial,
-		float radius = .5f,
-		float height = 2.f)
+		float radius = 5.5f,
+		float height = 13.f)
 	{
 		controller.setToDefault();
 		controller.radius = radius;

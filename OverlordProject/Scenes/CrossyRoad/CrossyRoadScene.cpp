@@ -32,7 +32,7 @@ void CrossyRoadScene::Initialize()
 	AddChild(m_pTerrainGenerator);
 	AddChild(m_pCharacter);
 
-	m_pCharacter->GetTransform()->Scale(10);
+	//m_pCharacter->GetTransform()->Scale(10);
 	m_pTerrainGenerator->GetTransform()->Scale(10);
 
 	//input actions
@@ -55,7 +55,7 @@ void CrossyRoadScene::OnGUI()
 {
 	GameScene::OnGUI();
 	m_pCharacter->DrawImGui();
-	m_pCamera->DrawImGui();
+	//m_pCamera->DrawImGui();
 	ImGui::Begin("lights");
 
 	ImGui::Text("LightDir");

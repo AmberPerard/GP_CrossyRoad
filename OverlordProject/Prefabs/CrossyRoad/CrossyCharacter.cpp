@@ -8,16 +8,6 @@
 CrossyCharacter::CrossyCharacter(CharacterDesc characterDesc)
 	:m_CharacterDesc{ characterDesc }
 {
-	const auto material = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
-	material->SetDiffuseTexture(L"../Resources/Textures/Chicken.png");
-
-	m_pCharachter = new GameObject();
-	auto model = m_pCharachter->AddComponent(new ModelComponent(L"../Resources/Meshes/CrossyRoad/Chicken.ovm"));
-	model->SetMaterial(material);
-
-	m_pCharachter->GetTransform()->Scale(1.f);
-	AddChild(m_pCharachter);
-	m_JumpTimer = m_JumpTime;
 }
 
 void CrossyCharacter::SetTerrain(TerrainGenerator* pTerrainGenerator)
@@ -29,30 +19,57 @@ void CrossyCharacter::Respawn()
 {
 	m_IsDead = false;
 	m_StepsTaken = 0;
-	m_TargetPos = {0,0};
-	m_PrevPos = {0,0};
-	m_pCharachter->GetTransform()->Translate(0,0,0);
+	m_TargetPos = { 0,0 };
+	m_PrevPos = { 0,0 };
+	m_pCharachter->GetTransform()->Translate(0, 0, 0);
 	m_pCharachter->GetTransform()->Rotate(0, 0, 0);
 }
 
-void CrossyCharacter::Initialize(const SceneContext& sceneContext)
+void CrossyCharacter::Initialize(const SceneContext&)
 {
+	//Controller
+	m_pControllerComponent = AddComponent(new ControllerComponent(m_CharacterDesc.controller));
+
+	const auto material = MaterialManager::Get()->CreateMaterial<DiffuseMaterial_Shadow>();
+	material->SetDiffuseTexture(L"../Resources/Textures/Chicken.png");
+
+	m_pCharachter = new GameObject();
+	auto model = m_pCharachter->AddComponent(new ModelComponent(L"../Resources/Meshes/CrossyRoad/Chicken.ovm"));
+	model->SetMaterial(material);
+	m_pCharachter->GetTransform()->Scale(10.f);
+
+	m_JumpTimer = m_JumpTime;
 	m_StepsTaken = 0;
-	GameObject::Initialize(sceneContext);
+
+	//PxMaterial* pDefaultMat = PxGetPhysics().createMaterial(0.f, 0.f, 0.f);
+
+	//auto pRigid = m_pCharachter->AddComponent(new RigidBodyComponent(false));
+	//auto pConvexChick = ContentManager::Load<PxConvexMesh>(L"../Resources/Meshes/CrossyRoad/Chicken.ovpc");
+	//pRigid->AddCollider(PxConvexMeshGeometry(pConvexChick, PxMeshScale(10.f)), *pDefaultMat);
+
+	SetOnTriggerCallBack([=](GameObject* /*pTrigger*/, GameObject* /*pOther*/, PxTriggerAction action)
+		{
+			if (action == PxTriggerAction::ENTER && m_StepsTaken > 1)
+			{
+				m_IsDead = true;
+			}
+		});
+
+	AddChild(m_pCharachter);
 }
 
 void CrossyCharacter::Update(const SceneContext& sceneContext)
 {
 	if (m_IsDead) return;
-	
+
 	//check if you just jumped into the water
 	WaterSlice* pWater;
-	if(m_pTerrainGenerator)
+	if (m_pTerrainGenerator)
 	{
 		pWater = dynamic_cast<WaterSlice*>(m_pTerrainGenerator->GetCurrentTerrain(int(m_StepsTaken)));
 		if (pWater)
 		{
-			if(!pWater->IsLilyPad(int(m_PrevPos.x/10)))
+			if (!pWater->IsLilyPad(int(m_PrevPos.x / 10)))
 			{
 				m_IsDead = true;
 			}
@@ -91,7 +108,7 @@ void CrossyCharacter::UpdateMovement(const SceneContext& sceneContext)
 
 		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveRight))
 		{
-			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x/10) + 1, int(m_StepsTaken)))
+			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x / 10) + 1, int(m_StepsTaken)))
 			{
 				m_TargetPos.x += m_TileSize;
 				SetRotation(180.f);
@@ -100,7 +117,7 @@ void CrossyCharacter::UpdateMovement(const SceneContext& sceneContext)
 
 		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveLeft))
 		{
-			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x/10) - 1, int(m_StepsTaken)))
+			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x / 10) - 1, int(m_StepsTaken)))
 			{
 				m_TargetPos.x -= m_TileSize;
 				SetRotation(0.f);
@@ -108,7 +125,7 @@ void CrossyCharacter::UpdateMovement(const SceneContext& sceneContext)
 		}
 		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveBackward))
 		{
-			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x/10), int(m_StepsTaken-1)))
+			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x / 10), int(m_StepsTaken - 1)))
 			{
 				m_TargetPos.y -= m_TileSize;
 				m_StepsTaken--;
@@ -118,7 +135,7 @@ void CrossyCharacter::UpdateMovement(const SceneContext& sceneContext)
 
 		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveForward))
 		{
-			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x/10), int(m_StepsTaken+1)))
+			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x / 10), int(m_StepsTaken + 1)))
 			{
 				m_TargetPos.y += m_TileSize;
 				m_StepsTaken++;
@@ -161,7 +178,10 @@ void CrossyCharacter::MoveCharacter()
 	float xPos = std::lerp(m_PrevPos.x, m_TargetPos.x, jumpProgress);
 	float zPos = std::lerp(m_PrevPos.y, m_TargetPos.y, jumpProgress);
 
-	GetTransform()->Translate(xPos, m_CurrentHeight, zPos);
+	//GetTransform()->Translate(xPos, m_CurrentHeight, zPos);
+	XMFLOAT3 displacement;
+	XMStoreFloat3(&displacement, { xPos, m_CurrentHeight, zPos });
+	m_pControllerComponent->Translate(displacement);
 }
 
 void CrossyCharacter::RotateCharacter(const SceneContext& sceneContext)

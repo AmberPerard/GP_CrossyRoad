@@ -25,6 +25,7 @@ protected:
 	void Update(const SceneContext&) override;
 private:
 	GameObject* m_pCharachter;
+	ControllerComponent* m_pControllerComponent{};
 	CharacterDesc m_CharacterDesc;
 
 	//Movement
