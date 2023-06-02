@@ -31,11 +31,24 @@ void Car::Initialize(const SceneContext&)
 		{
 			OnCollision(pTrigger, pOther, action);
 		});
-
+	FMOD::System* pFmod = SoundManager::Get()->GetSystem();
+	pFmod->createStream("Resources/Audio/carhit.mp3", FMOD_DEFAULT, nullptr, &m_pCarDeath);
+	pFmod->createStream("Resources/Audio/car-engine-loop-deep.wav", FMOD_DEFAULT, nullptr, &m_pCarPassNoHorn);
 }
 
 void Car::Update(const SceneContext& sceneContext)
 {
+	if (!m_PassPlayed)
+	{
+		auto random = rand() % 5;
+		if (random == 1)
+		{
+			SoundManager::Get()->GetSystem()->playSound(m_pCarPassNoHorn, nullptr, false, &m_pChannelCarPass);
+			m_pChannelCarPass->setVolume(0.1f);
+		}
+		m_PassPlayed = true;
+	}
+
 	//move the car model
 	float XMovement = m_Speed * sceneContext.pGameTime->GetElapsed() * m_Direction;
 	GetTransform()->Translate(GetTransform()->GetPosition().x + XMovement, GetTransform()->GetPosition().y, GetTransform()->GetPosition().z);
@@ -53,6 +66,8 @@ void Car::OnCollision(GameObject*, GameObject* pOther, PxTriggerAction action)
 		if (pCharacter != nullptr)
 		{
 			pCharacter->SetDead(true);
+			SoundManager::Get()->GetSystem()->playSound(m_pCarDeath, nullptr, false, &m_pChannelDeath);
+			m_pChannelDeath->setVolume(0.6f);
 		}
 	}
 }

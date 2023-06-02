@@ -41,19 +41,10 @@ void CrossyCharacter::Initialize(const SceneContext&)
 	m_JumpTimer = m_JumpTime;
 	m_StepsTaken = 0;
 
-	//PxMaterial* pDefaultMat = PxGetPhysics().createMaterial(0.f, 0.f, 0.f);
-
-	//auto pRigid = m_pCharachter->AddComponent(new RigidBodyComponent(false));
-	//auto pConvexChick = ContentManager::Load<PxConvexMesh>(L"../Resources/Meshes/CrossyRoad/Chicken.ovpc");
-	//pRigid->AddCollider(PxConvexMeshGeometry(pConvexChick, PxMeshScale(10.f)), *pDefaultMat);
-
-	SetOnTriggerCallBack([=](GameObject* /*pTrigger*/, GameObject* /*pOther*/, PxTriggerAction action)
-		{
-			if (action == PxTriggerAction::ENTER && m_StepsTaken > 1)
-			{
-				m_IsDead = true;
-			}
-		});
+	//sound
+	FMOD::System* pFmod = SoundManager::Get()->GetSystem();
+	pFmod->createStream("Resources/Audio/jump.wav", FMOD_DEFAULT, nullptr, &m_pJumpSound);
+	pFmod->createStream("Resources/Audio/watersplashlow.mp3", FMOD_DEFAULT, nullptr, &m_pSplashSound);
 
 	AddChild(m_pCharachter);
 }
@@ -71,6 +62,8 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 		{
 			if (!pWater->IsLilyPad(int(m_PrevPos.x / 10)))
 			{
+				SoundManager::Get()->GetSystem()->playSound(m_pSplashSound, nullptr, false, &m_pChannelSplash);
+				m_pChannelSplash->setVolume(0.6f);
 				m_IsDead = true;
 			}
 		}
@@ -146,6 +139,8 @@ void CrossyCharacter::UpdateMovement(const SceneContext& sceneContext)
 		if (isMoving)
 		{
 			m_JumpTimer = m_JumpTime;
+			SoundManager::Get()->GetSystem()->playSound(m_pJumpSound, nullptr, false, &m_pChannelJump);
+			m_pChannelJump->setVolume(.3f);
 		}
 	}
 	else

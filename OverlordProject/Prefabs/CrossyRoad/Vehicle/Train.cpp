@@ -40,10 +40,24 @@ void Train::Initialize(const SceneContext&)
 			OnCollision(pTrigger, pOther, action);
 		});
 
+	FMOD::System* pFmod = SoundManager::Get()->GetSystem();
+	pFmod->createStream("Resources/Audio/trainsplat.wav", FMOD_DEFAULT, nullptr, &m_pTrainDeath);
+	pFmod->createStream("Resources/Audio/Train_Alarm.wav", FMOD_DEFAULT, nullptr, &m_pTrainAlarm);
+	pFmod->createStream("Resources/Audio/train_pass_no_horn.wav", FMOD_DEFAULT, nullptr, &m_pTrainPassNoHorn);
+	pFmod->createStream("Resources/Audio/train_pass_shorter.wav", FMOD_DEFAULT, nullptr, &m_pTrainPassHorn);
+
+	SoundManager::Get()->GetSystem()->playSound(m_pTrainAlarm, nullptr, false, &m_pChannelAlarm);
+	m_pChannelAlarm->setVolume(0.2f);
+
 }
 
 void Train::Update(const SceneContext& sceneContext)
 {
+	if(!m_PassPlayed)
+	{
+		//SoundManager::Get()->GetSystem()->playSound(m_pTrainPassHorn, nullptr, false, &m_pChannelTrainPass);
+	//	m_pChannelTrainPass->setVolume(0.2f);
+	}
 	float XMovement = m_Speed * sceneContext.pGameTime->GetElapsed() * m_Direction;
 	GetTransform()->Translate(GetTransform()->GetPosition().x + XMovement, GetTransform()->GetPosition().y, GetTransform()->GetPosition().z);
 
@@ -60,6 +74,8 @@ void Train::OnCollision(GameObject*, GameObject* pOther, PxTriggerAction action)
 		if (pCharacter != nullptr)
 		{
 			pCharacter->SetDead(true);
+			SoundManager::Get()->GetSystem()->playSound(m_pTrainDeath, nullptr, false, &m_pChannelDeathTrain);
+			m_pChannelDeathTrain->setVolume(0.6f);
 		}
 	}
 }

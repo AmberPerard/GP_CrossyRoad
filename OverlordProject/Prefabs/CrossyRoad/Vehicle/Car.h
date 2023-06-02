@@ -39,6 +39,13 @@ private:
 
 	void InitializeTextures();
 	void ChooseRandomCar();
+
+	//Sound
+	FMOD::Channel* m_pChannelDeath{};
+	FMOD::Sound* m_pCarDeath{};
+	FMOD::Channel* m_pChannelCarPass{};
+	FMOD::Sound* m_pCarPassNoHorn{};
+	bool m_PassPlayed{ false };
 };
 
 

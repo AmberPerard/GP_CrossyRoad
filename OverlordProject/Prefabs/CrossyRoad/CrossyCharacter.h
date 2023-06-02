@@ -61,5 +61,11 @@ private:
 
 	//charachter life
 	bool m_IsDead{ false };
+
+	//sound
+	FMOD::Channel* m_pChannelJump{};
+	FMOD::Sound* m_pJumpSound{};
+	FMOD::Channel* m_pChannelSplash{};
+	FMOD::Sound* m_pSplashSound{};
 };
 

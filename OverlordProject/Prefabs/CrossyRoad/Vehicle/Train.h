@@ -35,6 +35,16 @@ private:
 
 	void InitializeTextures();
 	void ChooseCorrectTrainPiece();
+
+	//Sound
+	FMOD::Channel* m_pChannelDeathTrain{};
+	FMOD::Sound* m_pTrainDeath{};
+	FMOD::Channel* m_pChannelAlarm{};
+	FMOD::Sound* m_pTrainAlarm{};
+	FMOD::Channel* m_pChannelTrainPass{};
+	FMOD::Sound* m_pTrainPassNoHorn{};
+	FMOD::Sound* m_pTrainPassHorn{};
+	bool m_PassPlayed{ false };
 };
 
 

@@ -24,7 +24,7 @@ private:
 	float m_TrainSpeed{30.f};
 
 	float m_TrainSpawnInterval{ 0 };
-	float m_TrainSpawnMaxTime{ 4.f };
+	float m_TrainSpawnMaxTime{ 7.f };
 	float m_TrainSpawnMinTime{ 2.f };
 	void SetTrainSpawnInterval();
 
