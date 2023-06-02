@@ -29,7 +29,7 @@ void SpriteComponent::Draw(const SceneContext& sceneContext)
 	TransformComponent* transform{ m_pGameObject->GetTransform() };
 
 	SpriteRenderer::Get()->AppendSprite(m_pTexture,
-		XMFLOAT2{ transform->GetWorldPosition().x, transform->GetWorldPosition().y },
+		XMFLOAT2{ transform->GetPosition().x, transform->GetPosition().y },
 		m_Color,
 		m_Pivot,
 		XMFLOAT2{ transform->GetScale().x, transform->GetScale().y },

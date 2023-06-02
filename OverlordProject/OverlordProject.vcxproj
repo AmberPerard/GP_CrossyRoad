@@ -93,6 +93,7 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Scenes\CrossyRoad\CrossyMenuScene.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Vehicle\Car.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\LillyPad.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\Obstacle.cpp" />
@@ -160,6 +161,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Scenes\CrossyRoad\CrossyMenuScene.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Vehicle\Car.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Env\LillyPad.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Env\Obstacle.h" />

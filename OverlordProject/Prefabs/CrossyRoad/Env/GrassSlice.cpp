@@ -43,8 +43,12 @@ void GrassSlice::Initialize(const SceneContext& /*sceneContext*/)
 			GameObject* pObstacle = nullptr;
 			pObstacle = AddChild(new Tree());
 			m_Obstacles.insert(std::pair{ i, pObstacle });
-			pObstacle->GetTransform()->Translate(XMFLOAT3{   float(i), 0.4f, 0.f });
+			pObstacle->GetTransform()->Translate(XMFLOAT3{ float(i), 0.4f, 0.f });
 		}
+	}
+	else
+	{
+		CreateObstacles();
 	}
 }
 
@@ -56,12 +60,26 @@ void GrassSlice::CreateSideTrees()
 	for (int i = 1; i <= 3; i++)
 	{
 		pObstacle = AddChild(new Tree());
-		auto xpos= -m_MaxWidth - float(i);
+		auto xpos = -m_MaxWidth - float(i);
 		pObstacle->GetTransform()->Translate(XMFLOAT3{ xpos, 0.4f, 0.f });
 		m_Obstacles.insert(std::pair{ int(xpos), pObstacle });
 		pObstacle = AddChild(new Tree());
 		xpos = m_MaxWidth + float(i);
 		pObstacle->GetTransform()->Translate(XMFLOAT3{ xpos, 0.4f, 0.f });
 		m_Obstacles.insert(std::pair{int(xpos), pObstacle });
+	}
+}
+
+void GrassSlice::CreateObstacles()
+{
+	//spawn obstacles at random locations
+	for (int i{ 0 }; i < m_NrObstacles; ++i)
+	{
+		//spawn tree at this x pos
+		GameObject* pObstacle = nullptr;
+		pObstacle = AddChild(new Tree());
+		int xpos = rand() % (m_MaxWidth * 2) - m_MaxWidth;
+		m_Obstacles.insert(std::pair{ xpos, pObstacle });
+		pObstacle->GetTransform()->Translate(XMFLOAT3{ float(xpos), 0.4f, 0.f });
 	}
 }

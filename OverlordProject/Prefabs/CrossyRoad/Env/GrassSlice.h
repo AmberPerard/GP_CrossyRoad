@@ -17,5 +17,6 @@ public:
 	void Initialize(const SceneContext&) override;
 private:
 	void CreateSideTrees();
+	void CreateObstacles();
 };
 

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "GameScene.h"
 
-GameScene::GameScene(std::wstring sceneName):
+GameScene::GameScene(std::wstring sceneName) :
 	m_SceneName(std::move(sceneName))
 {
 }
@@ -64,7 +64,7 @@ void GameScene::RemoveChild(GameObject* pObject, bool deleteObject)
 	if (deleteObject)
 	{
 		SafeDelete(pObject);
-	}		
+	}
 }
 
 void GameScene::RootInitialize(const GameContext& gameContext)
@@ -97,7 +97,7 @@ void GameScene::RootInitialize(const GameContext& gameContext)
 	const auto pFreeCamera = new FreeCamera();
 	pFreeCamera->SetRotation(30, 0);
 	pFreeCamera->GetTransform()->Translate(0, 50, -80);
-	
+
 	AddChild(pFreeCamera);
 
 	m_pDefaultCamera = pFreeCamera->GetComponent<CameraComponent>();
@@ -156,12 +156,12 @@ void GameScene::RootDraw()
 	//SHADOW_PASS
 	//+++++++++++
 	TODO_W8(L"Implement Shadow Pass")
-	//1. BEGIN > ShadowMapRenderer::Begin (Initiate the ShadowPass)
-	ShadowMapRenderer::Get()->Begin(m_SceneContext);
+		//1. BEGIN > ShadowMapRenderer::Begin (Initiate the ShadowPass)
+		ShadowMapRenderer::Get()->Begin(m_SceneContext);
 	//2. DRAW_LOOP > For every GameObject (m_pChildren), call GameObject::RootShadowMapDraw
-	for(const auto pChild : m_pChildren)
+	for (const auto pChild : m_pChildren)
 	{
-				pChild->RootShadowMapDraw(m_SceneContext);
+		pChild->RootShadowMapDraw(m_SceneContext);
 	}
 	//3. END > ShadowMapRenderer::End (Terminate the ShadowPass)
 	ShadowMapRenderer::Get()->End(m_SceneContext);
@@ -236,7 +236,7 @@ void GameScene::RootDraw()
 				SpriteRenderer::Get()->DrawImmediate(m_SceneContext.d3dContext, PREV_RT->GetColorShaderResourceView(), DirectX::XMFLOAT2{});
 			}
 			//Done!
-	}
+		}
 #pragma endregion
 }
 
@@ -392,7 +392,7 @@ void GameScene::RemovePostProcessingEffect(PostProcessingMaterial* pMaterial)
 	if (std::ranges::find(m_PostProcessingMaterials, pMaterial) != m_PostProcessingMaterials.end())
 		m_PostProcessingMaterials.erase(std::ranges::remove(m_PostProcessingMaterials, pMaterial).begin());
 }
- 
+
 void GameScene::SetActiveCamera(CameraComponent* pCameraComponent)
 {
 	//Prevent recursion!

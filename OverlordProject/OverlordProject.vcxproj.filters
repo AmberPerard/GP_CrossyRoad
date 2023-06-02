@@ -49,6 +49,7 @@
     <ClCompile Include="Prefabs\CrossyRoad\Env\LillyPad.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Vehicle\Car.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Vehicle\Train.cpp" />
+    <ClCompile Include="Scenes\CrossyRoad\CrossyMenuScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h" />
@@ -98,5 +99,6 @@
     <ClInclude Include="Prefabs\CrossyRoad\Env\LillyPad.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Vehicle\Car.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Vehicle\Train.h" />
+    <ClInclude Include="Scenes\CrossyRoad\CrossyMenuScene.h" />
   </ItemGroup>
 </Project>
