@@ -19,10 +19,7 @@ public:
 	int GetStepsTaken() const { return m_StepsTaken; };
 	void SetTerrain(TerrainGenerator* pTerrainGenerator);
 	bool IsDead() const { return m_IsDead; };
-	void SetDead(bool isDead)
-	{
-		m_IsDead = isDead;
-	};
+	void SetDead(bool isDead);;
 
 	void Respawn();
 protected:
@@ -66,13 +63,23 @@ private:
 	void RotateCharacter(const SceneContext& sceneContext);
 	void SetRotation(float rotation);
 
-	//charachter life
+	//Charachter life
 	bool m_IsDead{ false };
 
-	//sound
+	//Sound
 	FMOD::Channel* m_pChannelJump{};
 	FMOD::Sound* m_pJumpSound{};
 	FMOD::Channel* m_pChannelSplash{};
 	FMOD::Sound* m_pSplashSound{};
+
+	//Particles
+	GameObject* m_pFeathersObject = nullptr;
+	ParticleEmitterSettings m_FeathersSettings{};
+	ParticleEmitterComponent* m_pFeathers = nullptr;
+
+	GameObject* m_pWaterSplashObject = nullptr;
+	ParticleEmitterSettings m_WaterSplashSettings{};
+	ParticleEmitterComponent* m_pWaterSplash = nullptr;
+	void InitializeParticles();
 };
 

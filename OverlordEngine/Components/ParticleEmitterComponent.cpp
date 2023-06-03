@@ -4,12 +4,13 @@
 
 ParticleMaterial* ParticleEmitterComponent::m_pParticleMaterial{};
 
-ParticleEmitterComponent::ParticleEmitterComponent(const std::wstring& assetFile, const ParticleEmitterSettings& emitterSettings, UINT particleCount) :
+ParticleEmitterComponent::ParticleEmitterComponent(const std::wstring& assetFile, const ParticleEmitterSettings& emitterSettings, UINT particleCount, bool singlePlay) :
 	m_ParticlesArray(new Particle[particleCount]),
 	m_ParticleCount(particleCount), //How big is our particle buffer?
 	m_MaxParticles(particleCount), //How many particles to draw (max == particleCount)
 	m_AssetFile(assetFile),
-	m_EmitterSettings(emitterSettings)
+	m_EmitterSettings(emitterSettings),
+	m_IsSinglePlay(singlePlay)
 {
 	m_enablePostDraw = true; //This enables the PostDraw function for the component
 }
@@ -81,9 +82,14 @@ void ParticleEmitterComponent::Update(const SceneContext& sceneContext)
 		{
 			UpdateParticle(m_ParticlesArray[i], elapsedTime);
 		}
-		if (!m_ParticlesArray[i].isActive && m_LastParticleSpawn >= particleInterval)
+
+		if (!m_IsSinglePlay)
 		{
-			SpawnParticle(m_ParticlesArray[i]);
+			//prevents particle spawning when singleplay is true
+			if (!m_ParticlesArray[i].isActive && m_LastParticleSpawn >= particleInterval)
+			{
+				SpawnParticle(m_ParticlesArray[i]);
+			}
 		}
 
 		if (m_ParticlesArray[i].isActive)
@@ -192,5 +198,14 @@ void ParticleEmitterComponent::DrawImGui()
 		ImGui::InputFloatRange("Radius Bounds", &m_EmitterSettings.minEmitterRadius, &m_EmitterSettings.maxEmitterRadius);
 		ImGui::InputFloat3("Velocity", &m_EmitterSettings.velocity.x);
 		ImGui::ColorEdit4("Color", &m_EmitterSettings.color.x, ImGuiColorEditFlags_NoInputs);
+	}
+}
+
+void ParticleEmitterComponent::SpawnOneShot()
+{
+	for (int i{}; i < (int)m_ParticleCount; ++i)
+	{
+		Particle& particle = m_ParticlesArray[i];
+		SpawnParticle(particle);
 	}
 }

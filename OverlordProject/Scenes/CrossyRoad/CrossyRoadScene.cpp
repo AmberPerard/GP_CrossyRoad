@@ -62,6 +62,10 @@ void CrossyRoadScene::OnGUI()
 
 void CrossyRoadScene::Update()
 {
+	m_SceneContext.pLights->SetDirectionalLight({ m_LightPos.x, m_LightPos.y,  m_pCharacter->GetPrevPosition().y - m_LightPos.z }, m_LightDirection);
+	int Score = m_pCharacter->GetStepsTaken();
+	m_pUiObject->SetScore(Score);
+	m_pUiObject->SetGameOver(m_IsGameOver);
 
 	if ((m_IsGameOver && m_SceneContext.pInput->IsActionTriggered(Restart)) || (m_IsGameOver && m_IsStarted))
 	{
@@ -77,10 +81,6 @@ void CrossyRoadScene::Update()
 		m_IsGameOver = false;
 	}
 
-	m_SceneContext.pLights->SetDirectionalLight({ m_LightPos.x, m_LightPos.y,  m_pCharacter->GetPrevPosition().y - m_LightPos.z }, m_LightDirection);
-	int Score = m_pCharacter->GetStepsTaken();
-	m_pUiObject->SetScore(Score);
-	m_pUiObject->SetGameOver(m_IsGameOver);
 
 	if (GetSceneContext().pInput->IsKeyboardKey(InputState::pressed, VK_ESCAPE))
 	{

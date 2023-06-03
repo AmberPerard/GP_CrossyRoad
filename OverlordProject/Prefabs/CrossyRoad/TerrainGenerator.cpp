@@ -178,6 +178,7 @@ void TerrainGenerator::SpawnNewSlice()
 	{
 		slice = new GrassSlice(0, m_MaxWidth, m_GrassTextureID);
 		AddChild(slice);
+		slice->GetTransform()->Translate(0.f, -0.4f, float(m_CurrentSliceNumber));
 		--m_NrBlankGrassSlices;
 
 	}
@@ -224,21 +225,25 @@ void TerrainGenerator::SpawnNewSlice()
 				case TerrainType::GRASS:
 					slice = new GrassSlice(2, m_MaxWidth, m_GrassTextureID);
 					AddChild(slice);
+					slice->GetTransform()->Translate(0.f, -0.4f, float(m_CurrentSliceNumber));
 					m_PreviousTerrainType = TerrainType::GRASS;
 					break;
 				case TerrainType::ROAD:
 					slice = new RoadSlice(0, m_MaxWidth, m_RoadTextureID);
 					AddChild(slice);
+					slice->GetTransform()->Translate(0.f, -0.5f, float(m_CurrentSliceNumber));
 					m_PreviousTerrainType = TerrainType::ROAD;
 					break;
 				case TerrainType::WATER:
 					slice = new WaterSlice(4, m_MaxWidth, m_WaterTextureID);
 					AddChild(slice);
+					slice->GetTransform()->Translate(0.f, -0.6f, float(m_CurrentSliceNumber));
 					m_PreviousTerrainType = TerrainType::WATER;
 					break;
 				case TerrainType::RAILROAD:
 					slice = new RailRoadSlice(0, m_MaxWidth, m_RailroadTextureID);
 					AddChild(slice);
+					slice->GetTransform()->Translate(0.f, -0.4f, float(m_CurrentSliceNumber));
 					m_PreviousTerrainType = TerrainType::RAILROAD;
 					break;
 				default:
@@ -256,7 +261,6 @@ void TerrainGenerator::SpawnNewSlice()
 
 	if (slice != nullptr) {
 		m_TerrainSlices.insert(std::pair(m_CurrentSliceNumber, (slice)));
-		slice->GetTransform()->Translate(0.f, -0.4f, float(m_CurrentSliceNumber));
 		//slice->GetTransform()->Scale(10.f);
 		++m_CurrentSliceNumber;
 

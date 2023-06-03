@@ -15,6 +15,12 @@ void CrossyCharacter::SetTerrain(TerrainGenerator* pTerrainGenerator)
 	m_pTerrainGenerator = pTerrainGenerator;
 }
 
+void CrossyCharacter::SetDead(bool isDead)
+{
+	m_IsDead = isDead;
+	m_pFeathers->SpawnOneShot();
+}
+
 void CrossyCharacter::Respawn()
 {
 	m_IsDead = false;
@@ -46,13 +52,16 @@ void CrossyCharacter::Initialize(const SceneContext&)
 	pFmod->createStream("Resources/Audio/jump.wav", FMOD_DEFAULT, nullptr, &m_pJumpSound);
 	pFmod->createStream("Resources/Audio/watersplashlow.mp3", FMOD_DEFAULT, nullptr, &m_pSplashSound);
 
+	InitializeParticles();
+
 	AddChild(m_pCharachter);
 }
 
 void CrossyCharacter::Update(const SceneContext& sceneContext)
 {
-	if (m_IsDead) return;
-
+	if (m_IsDead) {
+		return;
+	}
 	//check if you just jumped into the water
 	WaterSlice* pWater;
 	if (m_pTerrainGenerator)
@@ -62,16 +71,16 @@ void CrossyCharacter::Update(const SceneContext& sceneContext)
 		{
 			if (!pWater->IsLilyPad(int(m_PrevPos.x / 10)))
 			{
+				m_pWaterSplash->SpawnOneShot();
 				SoundManager::Get()->GetSystem()->playSound(m_pSplashSound, nullptr, false, &m_pChannelSplash);
 				m_pChannelSplash->setVolume(0.6f);
 				m_IsDead = true;
+
 			}
 		}
 	}
 
 	UpdateMovement(sceneContext);
-
-	//implement Squish
 
 	MoveCharacter();
 	RotateCharacter(sceneContext);
@@ -228,4 +237,38 @@ void CrossyCharacter::SetRotation(float rotation)
 		}
 	}
 	m_RotationTimer = m_RotationTime;
+}
+
+void CrossyCharacter::InitializeParticles()
+{
+	//particles
+	m_pFeathersObject = AddChild(new GameObject());
+
+	m_FeathersSettings.minEmitterRadius = 1.f;
+	m_FeathersSettings.maxEmitterRadius = 10.f;
+	m_FeathersSettings.minScale = 1.f;
+	m_FeathersSettings.maxScale = 3.f;
+	m_FeathersSettings.velocity = { 2.f, 4.f, 10.f };
+	m_FeathersSettings.minSize = 1.0f;
+	m_FeathersSettings.maxSize = 2.f;
+	m_FeathersSettings.minEnergy = 0.2f;
+	m_FeathersSettings.maxEnergy = 1.f;
+
+	m_pFeathers = m_pFeathersObject->AddComponent(new ParticleEmitterComponent(L"../Resources/Textures/crossy/DeathObject.png", m_FeathersSettings, 100, true));
+
+
+	m_pWaterSplashObject = AddChild(new GameObject());
+
+	m_WaterSplashSettings.minEmitterRadius = 1.f;
+	m_WaterSplashSettings.maxEmitterRadius = 10.f;
+	m_WaterSplashSettings.minScale = 1.f;
+	m_WaterSplashSettings.maxScale = 3.f;
+	m_WaterSplashSettings.velocity = { 0.f, -4.0f, 0.f };
+	m_WaterSplashSettings.minSize = 1.f;
+	m_WaterSplashSettings.maxSize = 2.0f;
+	m_WaterSplashSettings.minEnergy = 0.2f;
+	m_WaterSplashSettings.maxEnergy = 1.f;
+
+	m_pWaterSplash = m_pWaterSplashObject->AddComponent(new ParticleEmitterComponent(L"../Resources/Textures/crossy/DeathWater.png", m_WaterSplashSettings, 100, true));
+
 }

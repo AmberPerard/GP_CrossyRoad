@@ -46,6 +46,8 @@ private:
 	FMOD::Channel* m_pChannelCarPass{};
 	FMOD::Sound* m_pCarPassNoHorn{};
 	bool m_PassPlayed{ false };
+
+	bool m_isTriggered{ false };
 };
 
 

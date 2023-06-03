@@ -49,7 +49,7 @@ void RoadSlice::Update(const SceneContext& sceneContext)
 	{
 		m_CarSpawnTimer = 0.f;
 		SetCarSpawnInterval();
-		//SpawnCar();
+		SpawnCar();
 	}
 
 	deleteCars();

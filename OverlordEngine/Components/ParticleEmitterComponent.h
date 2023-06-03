@@ -35,7 +35,7 @@ struct Particle
 class ParticleEmitterComponent : public BaseComponent
 {
 public:
-	ParticleEmitterComponent(const std::wstring& assetFile, const ParticleEmitterSettings& emitterSettings = {}, UINT particleCount = 50);
+	ParticleEmitterComponent(const std::wstring& assetFile, const ParticleEmitterSettings& emitterSettings = {}, UINT particleCount = 50, bool singlePlay = false);
 	~ParticleEmitterComponent() override;
 	ParticleEmitterComponent(const ParticleEmitterComponent& other) = delete;
 	ParticleEmitterComponent(ParticleEmitterComponent&& other) noexcept = delete;
@@ -44,7 +44,7 @@ public:
 
 	ParticleEmitterSettings& GetSettings() { return m_EmitterSettings; }; //EmitterSettings Getter (by reference) > allows settings changes
 	void DrawImGui();
-
+	void SpawnOneShot();
 protected:
 	void Initialize(const SceneContext&) override;
 	void Update(const SceneContext&) override;
@@ -67,6 +67,8 @@ private:
 	UINT m_ActiveParticles{}; //The active particles for the current frame
 	float m_LastParticleSpawn{}; //Total seconds since the last created particle
 	std::wstring m_AssetFile{};
+
+	bool m_IsSinglePlay{ false };
 
 	bool m_DrawImGui{ false };
 };
