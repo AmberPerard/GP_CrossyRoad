@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "CrossyRoadScene.h"
-
 #include "Prefabs/CrossyRoad/Menu/Button.h"
 
 void CrossyRoadScene::Initialize()
@@ -57,7 +56,6 @@ void CrossyRoadScene::Initialize()
 
 void CrossyRoadScene::OnGUI()
 {
-	//::SliderFloat2("button pos", &m_ButtonFloat_Continue.x, 0, 1000.f);
 }
 
 void CrossyRoadScene::Update()

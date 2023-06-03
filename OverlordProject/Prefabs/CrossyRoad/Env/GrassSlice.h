@@ -5,7 +5,7 @@ class GrassSlice final : public TerrainSlice
 {
 public:
 	GrassSlice(int amountOfObstacles, int maxWidth, UINT textureID);
-	~GrassSlice() override;
+	~GrassSlice() = default;
 
 	GrassSlice(const GrassSlice& other) = delete;
 	GrassSlice(GrassSlice&& other) noexcept = delete;

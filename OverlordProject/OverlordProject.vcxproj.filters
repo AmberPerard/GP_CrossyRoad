@@ -43,9 +43,7 @@
     <ClCompile Include="Prefabs\CrossyRoad\Env\RoadSlice.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\RailRoadSlice.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\WaterSlice.cpp" />
-    <ClCompile Include="Prefabs\CrossyRoad\Env\Obstacle.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\Tree.cpp" />
-    <ClCompile Include="Prefabs\CrossyRoad\Env\Rock.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\LillyPad.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Vehicle\Car.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Vehicle\Train.cpp" />
@@ -98,7 +96,6 @@
     <ClInclude Include="Prefabs\CrossyRoad\Env\WaterSlice.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Env\Obstacle.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Env\Tree.h" />
-    <ClInclude Include="Prefabs\CrossyRoad\Env\Rock.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Env\LillyPad.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Vehicle\Car.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Vehicle\Train.h" />

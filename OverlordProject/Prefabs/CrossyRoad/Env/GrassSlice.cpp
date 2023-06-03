@@ -9,11 +9,6 @@ GrassSlice::GrassSlice(int amountOfObstacles, int maxWidth, UINT textureID)
 {
 }
 
-GrassSlice::~GrassSlice()
-{
-
-}
-
 bool GrassSlice::IsSlicePassable(int xPos)
 {
 	if (m_Obstacles.find(xPos) == m_Obstacles.end()) {

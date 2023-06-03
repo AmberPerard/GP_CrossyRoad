@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "RoadSlice.h"
-
 #include "Materials/Shadow/DiffuseMaterial_Shadow.h"
 
 RoadSlice::RoadSlice(int amountOfObstacles, int maxWidth, UINT textureID)

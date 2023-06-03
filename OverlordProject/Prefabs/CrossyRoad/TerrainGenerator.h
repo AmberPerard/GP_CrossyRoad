@@ -36,10 +36,10 @@ protected:
 private:
 	std::map<int, TerrainSlice*> m_TerrainSlices;
 
-	TerrainSlice* m_CurrentSlice;
+	TerrainSlice* m_CurrentSlice = nullptr;
 	TerrainType m_PreviousTerrainType;
 
-	CrossyCharacter* m_TrackedCharacter;
+	CrossyCharacter* m_TrackedCharacter = nullptr;
 
 	int m_MaxWidth;
 

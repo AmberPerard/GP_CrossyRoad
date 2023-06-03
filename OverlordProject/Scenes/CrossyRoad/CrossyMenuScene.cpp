@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "CrossyMenuScene.h"
-
 #include "Materials/DiffuseMaterial_Skinned.h"
 #include "Prefabs/CrossyRoad/Menu/Button.h"
 

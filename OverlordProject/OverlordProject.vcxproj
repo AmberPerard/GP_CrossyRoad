@@ -99,14 +99,12 @@
     <ClCompile Include="Scenes\CrossyRoad\CrossyMenuScene.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Vehicle\Car.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\LillyPad.cpp" />
-    <ClCompile Include="Prefabs\CrossyRoad\Env\Obstacle.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\GrassSlice.cpp" />
     <ClCompile Include="Materials\Post\PostGrayscale.cpp" />
     <ClCompile Include="Materials\Post\PostBlur.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\CrossyCharacter.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\RoadSlice.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\RailRoadSlice.cpp" />
-    <ClCompile Include="Prefabs\CrossyRoad\Env\Rock.cpp" />
     <ClCompile Include="Scenes\CrossyRoad\CrossyRoadScene.cpp" />
     <ClCompile Include="Materials\DiffuseMaterial_Skinned.cpp" />
     <ClCompile Include="Materials\Shadow\DiffuseMaterial_Shadow.cpp" />
@@ -177,7 +175,6 @@
     <ClInclude Include="Prefabs\CrossyRoad\CrossyCharacter.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Env\RoadSlice.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Env\RailRoadSlice.h" />
-    <ClInclude Include="Prefabs\CrossyRoad\Env\Rock.h" />
     <ClInclude Include="Scenes\CrossyRoad\CrossyRoadScene.h" />
     <ClInclude Include="Materials\DiffuseMaterial_Skinned.h" />
     <ClInclude Include="Materials\Shadow\DiffuseMaterial_Shadow.h" />

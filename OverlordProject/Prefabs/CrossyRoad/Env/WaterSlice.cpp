@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "WaterSlice.h"
-
 #include "GrassSlice.h"
 #include "LillyPad.h"
 #include "Materials/Shadow/DiffuseMaterial_Shadow.h"

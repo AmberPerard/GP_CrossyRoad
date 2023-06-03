@@ -35,7 +35,7 @@ private:
 	static UINT m_GreenTextureID;
 	static UINT m_BlueTextureID;
 
-	GameObject* m_pCarCollision;
+	GameObject* m_pCarCollision = nullptr;
 
 	void InitializeTextures();
 	void ChooseRandomCar();

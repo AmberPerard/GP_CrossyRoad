@@ -5,7 +5,7 @@
 
 UINT LillyPad::m_LilyTextureID = 0;
 
-void LillyPad::Initialize(const SceneContext& /*sceneContext*/)
+void LillyPad::Initialize(const SceneContext&)
 {
 	ModelComponent* pModel = AddComponent(new ModelComponent(L"../Resources/Meshes/CrossyRoad/env/lillypad.ovm"));
 	if(m_LilyTextureID == 0)

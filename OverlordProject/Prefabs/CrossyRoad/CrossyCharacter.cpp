@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "CrossyCharacter.h"
-
 #include "TerrainGenerator.h"
 #include "Env/WaterSlice.h"
 #include "Materials/Shadow/DiffuseMaterial_Shadow.h"

@@ -26,7 +26,7 @@ protected:
 	void Initialize(const SceneContext&) override;
 	void Update(const SceneContext&) override;
 private:
-	GameObject* m_pCharachter;
+	GameObject* m_pCharachter = nullptr;
 	ControllerComponent* m_pControllerComponent{};
 	CharacterDesc m_CharacterDesc;
 

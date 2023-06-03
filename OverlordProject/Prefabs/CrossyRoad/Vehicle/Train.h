@@ -31,7 +31,7 @@ private:
 	static UINT m_TrainEndTextureID;
 
 	TrainPiece m_WhatTrainPiece;
-	GameObject* m_pTrainCollision;
+	GameObject* m_pTrainCollision = nullptr;
 
 	void InitializeTextures();
 	void ChooseCorrectTrainPiece();

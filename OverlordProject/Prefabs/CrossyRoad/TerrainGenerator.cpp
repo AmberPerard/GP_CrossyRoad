@@ -46,7 +46,7 @@ void TerrainGenerator::Reset()
 	m_CurrentSlice = nullptr;
 	m_CurrentSliceNumber = 0;
 	//put a few grass slices down by default for the player to start on
-		//first 5 slices before slice 0
+	//first 5 slices before slice 0
 	TerrainSlice* slice = nullptr;
 	for (int i{ -5 }; i < 0; ++i)
 	{
@@ -54,7 +54,6 @@ void TerrainGenerator::Reset()
 		slice = AddChild(grass);
 		m_TerrainSlices.insert(std::pair{ i, slice });
 		slice->GetTransform()->Translate(0.f, -0.4f, float(i));
-		//slice->GetTransform()->Scale(10.f);
 	}
 
 	m_NrBlankGrassSlices = m_MaxBlankSlices;
@@ -135,7 +134,6 @@ void TerrainGenerator::Initialize(const SceneContext& /*sceneContext*/)
 		slice = AddChild(grass);
 		m_TerrainSlices.insert(std::pair{ i, slice });
 		slice->GetTransform()->Translate(0.f, -0.4f, float(i));
-		//slice->GetTransform()->Scale(10.f);
 	}
 
 	m_NrBlankGrassSlices = m_MaxBlankSlices;
