@@ -14,21 +14,29 @@ protected:
 	void OnGUI() override;
 	void Update() override;
 private:
-	ModelAnimator* pAnimator{};
+	//Camera
+	FixedCamera* m_pCamera{};
+	float m_Pitch{ 20.f };
+	float m_Yaw{ 0.f };
 
-	GameObject* m_pStartButton{};
+	XMFLOAT3 m_CameraPos{ 0.f, 3.14f, -9.52f };
+
+	//Buttons
+	//start
+	GameObject* m_pStartObject{};
+	ModelAnimator* pAnimatorStart{};
+
+	//quit
+	GameObject* m_pQuitObject{};
+	ModelAnimator* pAnimatorQuit{};
+
+	//background
 	GameObject* m_pBackground{};
 
 	bool m_StartedHovered{ false };
 	bool m_QuitHovered{ false };
 
-	float zValueWolf{ 10.f };
-	float zValuebackground{ 0.f };
-
-	int m_AnimationClipId{ 0 };
-	float m_AnimationSpeed{ 1.f };
-
-	char** m_ClipNames{};
-	UINT m_ClipCount{};
+	void SpawnBackgroundSprites();
+	void SpawnButtonObjects();
 };
 

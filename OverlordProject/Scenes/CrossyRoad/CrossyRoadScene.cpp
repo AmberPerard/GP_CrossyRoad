@@ -53,22 +53,22 @@ void CrossyRoadScene::Initialize()
 
 void CrossyRoadScene::OnGUI()
 {
-	GameScene::OnGUI();
-	m_pCharacter->DrawImGui();
+	//GameScene::OnGUI();
+	//m_pCharacter->DrawImGui();
 	//m_pCamera->DrawImGui();
-	ImGui::Begin("lights");
+	//ImGui::Begin("lights");
 
-	ImGui::Text("LightDir");
-	ImGui::SliderFloat("lightDir x", &m_LightDirection.x, -1.f, 1.f);
-	ImGui::SliderFloat("lightDir y", &m_LightDirection.y, -1.f, 1.f);
-	ImGui::SliderFloat("lightDir z", &m_LightDirection.z, -1.f, 1.f);
+	//ImGui::Text("LightDir");
+	//ImGui::SliderFloat("lightDir x", &m_LightDirection.x, -1.f, 1.f);
+	//ImGui::SliderFloat("lightDir y", &m_LightDirection.y, -1.f, 1.f);
+	//ImGui::SliderFloat("lightDir z", &m_LightDirection.z, -1.f, 1.f);
 
-	ImGui::Text("LightPos");
-	ImGui::SliderFloat("lightpos x", &m_LightPos.x, -100.f, 100.f);
-	ImGui::SliderFloat("lightpos y", &m_LightPos.y, -100.f, 100.f);
-	ImGui::SliderFloat("lightpos z", &m_LightPos.z, -100.f, 100.f);
+	//ImGui::Text("LightPos");
+	//ImGui::SliderFloat("lightpos x", &m_LightPos.x, -100.f, 100.f);
+	//ImGui::SliderFloat("lightpos y", &m_LightPos.y, -100.f, 100.f);
+	//ImGui::SliderFloat("lightpos z", &m_LightPos.z, -100.f, 100.f);
 
-	ImGui::End();
+	//ImGui::End();
 
 }
 
