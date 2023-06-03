@@ -93,6 +93,9 @@
     <PostBuildEvent />
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Prefabs\CrossyRoad\Menu\Button.cpp" />
+    <ClCompile Include="Materials\Post\PostVignette.cpp" />
+    <ClCompile Include="Prefabs\CrossyRoad\Menu\GameUI.cpp" />
     <ClCompile Include="Scenes\CrossyRoad\CrossyMenuScene.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Vehicle\Car.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Env\LillyPad.cpp" />
@@ -161,6 +164,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Prefabs\CrossyRoad\Menu\Button.h" />
+    <ClInclude Include="Materials\Post\PostVignette.h" />
+    <ClInclude Include="Prefabs\CrossyRoad\Menu\GameUI.h" />
     <ClInclude Include="Scenes\CrossyRoad\CrossyMenuScene.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Vehicle\Car.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Env\LillyPad.h" />

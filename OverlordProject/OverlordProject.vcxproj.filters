@@ -50,6 +50,9 @@
     <ClCompile Include="Prefabs\CrossyRoad\Vehicle\Car.cpp" />
     <ClCompile Include="Prefabs\CrossyRoad\Vehicle\Train.cpp" />
     <ClCompile Include="Scenes\CrossyRoad\CrossyMenuScene.cpp" />
+    <ClCompile Include="Prefabs\CrossyRoad\Menu\GameUI.cpp" />
+    <ClCompile Include="Materials\Post\PostVignette.cpp" />
+    <ClCompile Include="Prefabs\CrossyRoad\Menu\Button.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MainGame.h" />
@@ -100,5 +103,8 @@
     <ClInclude Include="Prefabs\CrossyRoad\Vehicle\Car.h" />
     <ClInclude Include="Prefabs\CrossyRoad\Vehicle\Train.h" />
     <ClInclude Include="Scenes\CrossyRoad\CrossyMenuScene.h" />
+    <ClInclude Include="Prefabs\CrossyRoad\Menu\GameUI.h" />
+    <ClInclude Include="Materials\Post\PostVignette.h" />
+    <ClInclude Include="Prefabs\CrossyRoad\Menu\Button.h" />
   </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@ class CrossyMenuScene : public GameScene
 {
 public:
 	CrossyMenuScene() :GameScene(L"CrossyMenuScene") {}
-	~CrossyMenuScene() override;
+	~CrossyMenuScene() = default;
 	CrossyMenuScene(const CrossyMenuScene& other) = delete;
 	CrossyMenuScene(CrossyMenuScene&& other) noexcept = delete;
 	CrossyMenuScene& operator=(const CrossyMenuScene& other) = delete;
@@ -32,11 +32,18 @@ private:
 
 	//background
 	GameObject* m_pBackground{};
+	GameObject* m_pMenuButtons{};
+	SpriteFont* m_pFont{};
+
+	XMFLOAT2 m_StartPos{ 385.f, 520.f };
+	XMFLOAT2 m_QuitPos{777.f, 520.f };
 
 	bool m_StartedHovered{ false };
 	bool m_QuitHovered{ false };
+	XMFLOAT2 m_ButtonFloatStart{400,510};
+	XMFLOAT2 m_ButtonFloatQuit{770,510};
 
 	void SpawnBackgroundSprites();
-	void SpawnButtonObjects();
+	void SpawnWolfsObjects();
 };
 

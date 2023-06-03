@@ -104,7 +104,6 @@
   <ItemGroup>
     <ClInclude Include="Components\ControllerComponent.h" />
     <ClInclude Include="Components\ParticleEmitterComponent.h" />
-    <ClInclude Include="Prefabs\FollowCamera.h" />
     <ClInclude Include="Graphics\ShadowMapRenderer.h" />
     <ClInclude Include="Lab_Todos.h" />
     <ClInclude Include="Managers\LightManager.h" />
@@ -115,6 +114,7 @@
     <ClInclude Include="Misc\PostProcessingMaterial.h" />
     <ClInclude Include="Misc\ShadowMapMaterial.h" />
     <ClInclude Include="Prefabs\FixedCamera.h" />
+    <ClInclude Include="Prefabs\FollowCamera.h" />
     <ClInclude Include="Prefabs\FreeCamera.h" />
     <ClInclude Include="Utils\ImguiHelper.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -175,7 +175,6 @@
   <ItemGroup>
     <ClCompile Include="Components\ControllerComponent.cpp" />
     <ClCompile Include="Components\ParticleEmitterComponent.cpp" />
-    <ClCompile Include="Prefabs\FollowCamera.cpp" />
     <ClCompile Include="Graphics\ShadowMapRenderer.cpp" />
     <ClCompile Include="Managers\LightManager.cpp" />
     <ClCompile Include="Misc\ModelAnimator.cpp" />
@@ -185,6 +184,7 @@
     <ClCompile Include="Misc\PostProcessingMaterial.cpp" />
     <ClCompile Include="Misc\ShadowMapMaterial.cpp" />
     <ClCompile Include="Prefabs\FixedCamera.cpp" />
+    <ClCompile Include="Prefabs\FollowCamera.cpp" />
     <ClCompile Include="Prefabs\FreeCamera.cpp" />
     <ClCompile Include="Utils\ImguiHelper.cpp" />
     <ClCompile Include="Misc\Material.cpp" />

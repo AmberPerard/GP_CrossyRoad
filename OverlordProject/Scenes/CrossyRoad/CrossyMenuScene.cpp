@@ -2,14 +2,14 @@
 #include "CrossyMenuScene.h"
 
 #include "Materials/DiffuseMaterial_Skinned.h"
-
-CrossyMenuScene::~CrossyMenuScene()
-{
-}
+#include "Prefabs/CrossyRoad/Menu/Button.h"
 
 void CrossyMenuScene::Initialize()
 {
 	m_SceneContext.settings.enableOnGUI = true;
+	m_SceneContext.settings.drawPhysXDebug = false;
+	m_SceneContext.settings.drawGrid = false;
+	m_SceneContext.settings.drawUserDebug = false;
 
 	//CAMERA
 	m_pCamera = new FixedCamera();
@@ -21,7 +21,22 @@ void CrossyMenuScene::Initialize()
 	SetActiveCamera(pCamComp);
 
 	SpawnBackgroundSprites();
-	SpawnButtonObjects();
+	SpawnWolfsObjects();
+
+	m_pMenuButtons = new GameObject();
+	auto button = m_pMenuButtons->AddChild(new Button(L"Start", m_ButtonFloatStart, XMFLOAT4{ Colors::White }, { 200.f,50.f },{5,10}));
+	button->SetOnClickFunction([&]()
+		{
+			//start game
+			SceneManager::Get()->NextScene();
+		});
+
+	auto secondButton = m_pMenuButtons->AddChild(new Button(L"Quit", m_ButtonFloatQuit, XMFLOAT4{ Colors::White }, { 200.f,50.f },{0,10}));
+	secondButton->SetOnClickFunction([&]()
+		{
+			PostQuitMessage(0);
+		});
+	AddChild(m_pMenuButtons);
 }
 
 void CrossyMenuScene::OnGUI()
@@ -30,8 +45,6 @@ void CrossyMenuScene::OnGUI()
 
 void CrossyMenuScene::Update()
 {
-	m_pCamera->GetTransform()->Translate(m_CameraPos);
-
 	GameObject* picked = m_SceneContext.pCamera->Pick();
 	if (picked)
 	{
@@ -71,7 +84,7 @@ void CrossyMenuScene::Update()
 	{
 		if (m_StartedHovered)
 		{
-			//start game
+			//Start Game
 			SceneManager::Get()->NextScene();
 		}
 
@@ -90,7 +103,7 @@ void CrossyMenuScene::SpawnBackgroundSprites()
 	m_pBackground->GetTransform()->Scale(1.01f, 1.f, 1.0f);
 }
 
-void CrossyMenuScene::SpawnButtonObjects()
+void CrossyMenuScene::SpawnWolfsObjects()
 {
 	//Start button
 	m_pStartObject = AddChild(new GameObject());

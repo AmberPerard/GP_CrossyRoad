@@ -103,8 +103,11 @@ void CrossyCharacter::UpdateMovement(const SceneContext& sceneContext)
 		{
 			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x / 10) + 1, int(m_StepsTaken)))
 			{
-				m_TargetPos.x += m_TileSize;
-				SetRotation(180.f);
+				if ((m_TargetPos.x + m_TileSize) <= (m_MaxStepsSideWays * m_TileSize))
+				{
+					m_TargetPos.x += m_TileSize;
+					SetRotation(180.f);
+				}
 			}
 		}
 
@@ -112,17 +115,28 @@ void CrossyCharacter::UpdateMovement(const SceneContext& sceneContext)
 		{
 			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x / 10) - 1, int(m_StepsTaken)))
 			{
-				m_TargetPos.x -= m_TileSize;
-				SetRotation(0.f);
+				if ((m_TargetPos.x - m_TileSize) >= -(m_MaxStepsSideWays * m_TileSize))
+				{
+					m_TargetPos.x -= m_TileSize;
+					SetRotation(0.f);
+				}
 			}
 		}
 		if (sceneContext.pInput->IsActionTriggered(m_CharacterDesc.actionId_MoveBackward))
 		{
 			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x / 10), int(m_StepsTaken - 1)))
 			{
-				m_TargetPos.y -= m_TileSize;
-				m_StepsTaken--;
-				SetRotation(270.f);
+				if (m_StepsTakenBackwards <= m_MaxStepsBackwards)
+				{
+					m_StepsTakenBackwards++;
+					m_StepsTaken--;
+					m_TargetPos.y -= m_TileSize;
+					SetRotation(270.f);
+				}
+				else
+				{
+					m_IsDead = true;
+				}
 			}
 		}
 
@@ -130,6 +144,7 @@ void CrossyCharacter::UpdateMovement(const SceneContext& sceneContext)
 		{
 			if (m_pTerrainGenerator->IsCurrentSlicePassable(int(m_TargetPos.x / 10), int(m_StepsTaken + 1)))
 			{
+				m_StepsTakenBackwards = 0;
 				m_TargetPos.y += m_TileSize;
 				m_StepsTaken++;
 				SetRotation(90.f);

@@ -16,6 +16,7 @@ public:
 
 	void DrawImGui();
 	XMFLOAT2 GetPrevPosition() const { return m_PrevPos; };
+	int GetStepsTaken() const { return m_StepsTaken; };
 	void SetTerrain(TerrainGenerator* pTerrainGenerator);
 	bool IsDead() const { return m_IsDead; };
 	void SetDead(bool isDead)
@@ -39,6 +40,9 @@ private:
 	const float m_TileSize{ 10 };
 
 	int m_StepsTaken{0};
+	const int m_MaxStepsBackwards{ 2 };
+	const int m_MaxStepsSideWays{ 4 };
+	int m_StepsTakenBackwards{};
 
 	const float m_JumpTime{ 0.1f };
 	float m_JumpTimer{ 0.f };
